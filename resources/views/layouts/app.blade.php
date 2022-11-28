@@ -7,13 +7,17 @@
 
         <title>{{ config('app.name', 'Laravel') }}</title>
 
+        <!-- Leaflet -->
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
+        <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+
         <!-- Fonts -->
         <link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap">
-
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
 
         <!-- Styles -->
+        <link rel="stylesheet" href="{{asset('dist/css/app.css')}}">
         @livewireStyles
     </head>
     <body class="font-sans antialiased">
