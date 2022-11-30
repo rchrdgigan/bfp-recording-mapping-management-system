@@ -1,14 +1,14 @@
 <x-app-layout>
   <x-slot name="header">
       <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-          {{ __('Show FSIC') }}
+          {{ __('Show FSIC Transaction') }}
       </h2>
   </x-slot>
 
   <div class="py-12">
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <a href="{{route('fsic.index')}}" class="bg-gray-500 hover:bg-gray-700 text-white py-2 px-4 ml-3 rounded-md">
-            Back
+            <i class="fa fa-arrow-left" aria-hidden="true"></i> Back
         </a>
 
         <div class="pos grid grid-cols-12 gap-5 mt-5">
@@ -39,6 +39,9 @@
                     <x-jet-label for="address" value="{{ __('Address') }}" />
                     {{$fsic_trans->fsic->address}}
                 </div>
+
+                <hr class="mt-4 intro-y">
+
                 <div class="flex intro-y gap-2">
                     <div class="mt-4 col-span-6 mx-auto">
                         <x-jet-label for="valid_from" value="{{ __('Valid For') }}" />
@@ -61,19 +64,28 @@
                     <x-jet-label for="or_no" value="{{ __('OR Number') }}" />
                     {{$fsic_trans->or_no}}
                 </div>
+                <div class="mt-4 intro-y">
+                    @if($fsic_trans->valid_until < Carbon\Carbon::now()->format('Y-m-d'))
+                        @if($fsic_trans->status <> 1)
+                            <a class="bg-teal-500 hover:bg-teal-700 text-white py-2 px-4 rounded-md">
+                                Renew
+                            </a>
+                        @endif
+                    @endif
+                </div>
             </div>
             <!-- END: Post Content -->
 
-            <!-- BEGIN: Post Info -->
+            <!-- BEGIN: Road Map -->
             <div class="col-span-12 lg:col-span-8">
                 <div class="intro-y box p-10">
-                    <h1 class="text-lg font-semibold text-center">Map Setting</h1>
+                    <h1 class="text-lg font-semibold text-center">Road Map</h1>
                     <div style="height:500px;">
-                        @include('fsic.map')
+                        @include('map')
                     </div>
                 </div>
             </div>
-            <!-- END: Post Info -->
+            <!-- END: Road Map -->
         </div>
     </div>
   </div>

@@ -1,23 +1,31 @@
 <x-app-layout>
   <x-slot name="header">
       <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-          {{ __('FSIC Management') }}
+          {{ __('FSIC Transaction Management') }}
       </h2>
   </x-slot>
 
-  <div class="py-12">
+  <div class="py-12 p-2">
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-      <a href="{{route('fsic.create')}}" class="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 ml-3 rounded-md">
-        Create New
-      </a>        
-          
+      <div class="flex col-span-12 gap-2">
+        <a href="{{route('fsic.create')}}" class="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded-md">
+        <i class="fa fa-plus" aria-hidden="true"></i> Add New
+        </a>
+        <a href="{{route('fsic.renewal')}}" class="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded-md">
+        <i class="fa fa-check-circle" aria-hidden="true"></i> Renewal
+        </a>  
+        <div class="ml-auto w-60">
+          <x-jet-input id="search" class="block mt-1 w-full text-xs" type="text" name="search" :value="old('search')" placeholder="Search" autofocus />
+        </div>
+      </div>
       <!-- component -->
       <section class="container mx-auto mt-5">
         <div class="w-full overflow-hidden rounded-lg">
           <div class="w-full overflow-x-auto">
             <table class="w-full table table-report">
               <thead>
-                <tr class="text-md font-semibold tracking-wide text-left text-gray-900 bg-gray-100 uppercase border-b border-gray-600">
+                <tr class="text-md font-bold tracking-wide text-left text-gray-900 bg-gray-100 uppercase border-b border-gray-600">
+                  <th class="text-xs px-4 py-3">Date</th>
                   <th class="text-xs px-4 py-3">QR No.</th>
                   <th class="text-xs px-4 py-3">FSIC No.</th>
                   <th class="text-xs px-4 py-3">Establishment</th>
@@ -30,32 +38,28 @@
               <tbody class="bg-white">
                 @forelse($fsic_trans as $data)
                 <tr class="text-gray-700">
-                  <td class="text-xs px-4 py-3 text-ms font-semibold">{{$data->or_no}}</td>
-                  <td class="text-xs px-4 py-3 text-ms font-semibold">{{$data->fsic->fsic_no}}</td>
-                  <td class="text-xs px-4 py-3 text-ms font-semibold">{{$data->fsic->establishment}}</td>
-                  <td class="text-xs px-4 py-3 text-ms font-semibold">{{$data->fsic->owner}}</td>
-                  <td class="text-xs px-4 py-3 text-ms font-semibold">{{$data->fsic->address}}</td>
+                  <td class="text-xs px-4 py-3 text-ms ">{{Carbon\Carbon::parse($data->created_at)->format('M d, Y')}}</td>
+                  <td class="text-xs px-4 py-3 text-ms ">{{$data->or_no}}</td>
+                  <td class="text-xs px-4 py-3 text-ms ">{{$data->fsic->fsic_no}}</td>
+                  <td class="text-xs px-4 py-3 text-ms ">{{$data->fsic->establishment}}</td>
+                  <td class="text-xs px-4 py-3 text-ms ">{{$data->fsic->owner}}</td>
+                  <td class="text-xs px-4 py-3 text-ms ">{{$data->fsic->address}}</td>
                   <td class="text-xs px-4 py-3 text-xs">
-                    <span class="px-2 py-1 font-semibold leading-tight {{($data->valid_until > Carbon\Carbon::now()->format('Y-m-d')) ? ($data->status == 0) ? 'text-green-700 bg-green-100':'text-gray-700 bg-gray-100':'text-orange-700 bg-orange-100'}}  rounded-sm">
-                      {{($data->valid_until > Carbon\Carbon::now()->format('Y-m-d')) ? ($data->status == 0) ? 'New':'Oldest':'Expired'}}
+                    <span class="px-2 py-1  leading-tight {{($data->valid_until > Carbon\Carbon::now()->format('Y-m-d')) ? ($data->status == 0) ? 'text-green-700 bg-green-100':'text-gray-700 bg-gray-100':($data->status == 1 ? 'text-gray-700 bg-gray-100':'text-orange-700 bg-orange-100')}}  rounded-sm">
+                      {{($data->valid_until > Carbon\Carbon::now()->format('Y-m-d')) ? ($data->status == 0) ? 'New':'Oldest': ($data->status == 1 ? 'Oldest':'Expired')}}
                     </span>
                   </td>
                   <td>
                     <div class="flex gap-1">
                       <a href="{{route('fsic.show', $data->id)}}" class="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded-md">
-                          View
+                        <i class="fa fa-eye" aria-hidden="true"></i>
                       </a> 
                       <a href="{{route('fsic.edit', $data->id)}}" class="bg-green-500 hover:bg-green-700 text-white py-2 px-4 rounded-md">
-                          Edit
+                        <i class="fa fa-pencil" aria-hidden="true"></i>
                       </a>   
                       <a class="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded-md">
-                          Delete
+                        <i class="fa fa-trash" aria-hidden="true"></i>
                       </a>   
-                      @if($data->valid_until < Carbon\Carbon::now()->format('Y-m-d'))
-                      <a class="bg-teal-500 hover:bg-teal-700 text-white py-2 px-4 rounded-md">
-                          Renew
-                      </a>
-                      @endif
                     </div>
                   </td>
                 </tr>
