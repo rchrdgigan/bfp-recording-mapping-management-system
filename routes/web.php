@@ -14,9 +14,7 @@ use App\Http\Controllers\FsicController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::redirect('/', 'login');
 
 Route::middleware([
     'auth:sanctum',
@@ -28,4 +26,17 @@ Route::middleware([
     })->name('dashboard');
 });
 
-Route::resource('fsic', FsicController::class);
+Route::controller(FsicController::class)
+->as('fsic.')
+->prefix('fsic')
+->group(function(){
+    Route::get('/', 'index')->name('index');
+    Route::get('/show/{id}', 'show')->name('show');
+    Route::get('/create', 'create')->name('create');
+    Route::post('/store', 'store')->name('store');
+    Route::get('/edit/{id}', 'edit')->name('edit');
+    Route::put('/update/{id}', 'update')->name('update');
+    Route::delete('/destroy/{id}', 'destroy')->name('destroy');
+    Route::get('/renewal', 'renewalShow')->name('renewal');
+    Route::post('/renew', 'renew')->name('renew');
+});
