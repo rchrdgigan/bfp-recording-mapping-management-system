@@ -8,14 +8,33 @@
         <title>{{ config('app.name', 'Laravel') }}</title>
 
         <!-- Fonts -->
+        <link href="{{asset('image/bfp.png')}}" rel="shortcut icon">
         <link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap">
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
+    <style>
+        #background___img {
+            background: linear-gradient( rgba(102, 0, 0, 0.4), rgba(0, 0, 102, 0.4) ), url('/image/background.jpg');
+            background-repeat: no-repeat;
+            background-position-y: center;
+            background-position-x: center;
+            background-size: cover;
+            width: 100%;
+        }
+        @media only screen and (max-width: 600px) {
+            #background___img {
+                width: 0;
+            }
+        }
+    </style>
     <body>
-        <div class="font-sans text-gray-900 antialiased">
-            {{ $slot }}
+        <div class="flex">
+            <div class="font-sans text-gray-900 antialiased w-full">
+                {{ $slot }}
+            </div>
+            <div id="background___img"></div>
         </div>
     </body>
 </html>
