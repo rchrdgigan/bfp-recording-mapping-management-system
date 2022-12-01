@@ -1,7 +1,10 @@
 <x-guest-layout>
     <x-jet-authentication-card>
         <x-slot name="logo">
-            <img src="{{asset('image/bfp.png')}}" alt="" srcset="">
+            <img src="{{asset('image/bfp.png')}}" class="mx-auto">
+            <div class="w-60 text-center font-semibold">
+                {{ config('app.name', 'Laravel') }}
+            </div>
         </x-slot>
 
         <x-jet-validation-errors class="mb-4" />
@@ -17,12 +20,12 @@
 
             <div>
                 <x-jet-label for="email" value="{{ __('Email') }}" />
-                <x-jet-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" autofocus />
+                <x-jet-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" placeholder="Type your email" autofocus />
             </div>
 
             <div class="mt-4">
                 <x-jet-label for="password" value="{{ __('Password') }}" />
-                <x-jet-input id="password" class="block mt-1 w-full" type="password" name="password" autocomplete="current-password" />
+                <x-jet-input id="password" class="block mt-1 w-full" type="password" name="password" placeholder="Type your password" autocomplete="current-password" />
             </div>
 
             <div class="block mt-4">
