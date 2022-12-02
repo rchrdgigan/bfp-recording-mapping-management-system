@@ -60,9 +60,7 @@ FSIC Management
                       <a href="{{route('fsic.edit', $data->id)}}" class="bg-green-500 hover:bg-green-700 text-white py-2 px-4 rounded-md">
                         <i class="fa fa-pencil" aria-hidden="true"></i>
                       </a>   
-                      <a class="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded-md">
-                        <i class="fa fa-trash" aria-hidden="true"></i>
-                      </a>   
+                      @livewire('fsic-delete', ['fsic_tran' => $data], key($data->id))
                     </div>
                   </td>
                 </tr>

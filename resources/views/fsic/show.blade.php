@@ -85,7 +85,7 @@ View FSIC
                 <div class="intro-y box p-10">
                     <h1 class="text-lg font-semibold text-center">Road Map</h1>
                     <div style="height:500px;">
-                        @include('map')
+                        <x-map/>
                     </div>
                 </div>
             </div>

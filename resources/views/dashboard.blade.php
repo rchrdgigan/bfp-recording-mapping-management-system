@@ -64,7 +64,7 @@ Dashboard
                     <h1 class="text-xl text-center mb-5 font-semibold">Road Map</h1>
 
                     <div style="height:500px;">
-                        @include('map')
+                        <x-map/>
                     </div>
                 </div>
             </div>
