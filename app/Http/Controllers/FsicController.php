@@ -25,19 +25,19 @@ class FsicController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'fsic_no' => 'required | unique:fsics | integer',
-            'establishment' => 'required',
-            'owner' => 'required',
-            'business_types' => 'required',
-            'contact' => 'required | regex:/^([0-9\s\-\+\(\)]*)$/ | min:11 | max:11',
-            'address' => 'required',
+            'fsic_no' => 'required|unique:fsics|numeric',
+            'establishment' => 'required|string|max:255',
+            'owner' => 'required|string|max:255',
+            'business_types' => 'required|string|max:255',
+            'contact' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:11|max:11',
+            'address' => 'required|string|max:255',
             'lat' => 'required',
             'lng' => 'required',
             'valid_from' => 'required',
             'valid_to' => 'required',
-            'amount' => 'required',
-            'ops_no' => 'required',
-            'or_no' => 'required',
+            'amount' => 'required|numeric',
+            'ops_no' => 'required|numeric',
+            'or_no' => 'required|numeric',
         ]);
 
         $fsic = Fsic::where('fsic_no',$request->fsic_no)->first();
@@ -82,19 +82,19 @@ class FsicController extends Controller
     public function update(Request $request, $id)
     {
         $validated = $request->validate([
-            'fsic_no' => 'required | integer',
-            'establishment' => 'required',
-            'owner' => 'required',
-            'business_types' => 'required',
-            'contact' => 'required | regex:/^([0-9\s\-\+\(\)]*)$/|min:11|max:11',
-            'address' => 'required',
+            'fsic_no' => 'required|numeric',
+            'establishment' => 'required|string|max:255',
+            'owner' => 'required|string|max:255',
+            'business_types' => 'required|string|max:255',
+            'contact' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:11|max:11',
+            'address' => 'required|string|max:255',
             'lat' => 'required',
             'lng' => 'required',
             'valid_from' => 'required',
             'valid_to' => 'required',
-            'amount' => 'required | numeric',
-            'ops_no' => 'required | numeric',
-            'or_no' => 'required | numeric',
+            'amount' => 'required|numeric',
+            'ops_no' => 'required|numeric',
+            'or_no' => 'required|numeric',
         ]);
 
         $fsic_trans = FsicTransaction::findOrFail($id);
@@ -137,20 +137,23 @@ class FsicController extends Controller
     public function renew(Request $request)
     {
         $validated = $request->validate([
-            'fsic_no' => 'required',
+            'fsic_no' => 'required|numeric',
             'valid_from' => 'required',
             'valid_to' => 'required',
-            'amount' => 'required',
-            'ops_no' => 'required',
-            'or_no' => 'required',
+            'amount' => 'required|numeric',
+            'ops_no' => 'required|numeric',
+            'or_no' => 'required|numeric',
         ]);
 
         $fsic = Fsic::where('fsic_no',$request->fsic_no)->first();
+        
         if($fsic){
 
             $fsics = $fsic->fsic_transaction()->latest('created_at')->first();
-            $fsics->status = 1;
-            $fsics->update();
+            if($fsics){
+                $fsics->status = 1;
+                $fsics->update();
+            }
 
             $fsic->fsic_transaction()->create([
                 'valid_for' => $request->valid_from,
