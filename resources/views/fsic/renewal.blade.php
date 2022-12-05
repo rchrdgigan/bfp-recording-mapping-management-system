@@ -20,7 +20,6 @@ FSIC Renewal
         <form action="{{route('fsic.renew')}}" method="post">
             @csrf
             <div class="flex mt-5 max-w-4xl mx-auto">
-                <!-- BEGIN: Post Info -->
                 <div class="w-full">
                     <div class="post intro-y overflow-hidden box">
                         <div class="post__content tab-content">
@@ -28,16 +27,16 @@ FSIC Renewal
                             <h1 class="text-lg font-semibold text-center">Renewal Information</h1>
                                 <div class="mt-4 intro-y">
                                     <x-jet-label for="fsic_no" value="{{ __('FSIC No.') }}" />
-                                    <x-jet-input id="fsic_no" class="block mt-1 w-full text-xs" type="text" name="fsic_no" :value="old('fsic_no')" required autofocus />
+                                    <x-jet-input id="fsic_no" class="block mt-1 w-full text-xs" type="text" name="fsic_no" :value="old('fsic_no')" value="{{$fsics->fsic_no}}" required autofocus />
                                 </div>
                                 <div class="flex intro-y gap-2">
                                     <div class="mt-4 col-span-6">
                                         <x-jet-label for="valid_from" value="{{ __('Valid For') }}" />
-                                        <x-jet-input id="valid_from" class="block mt-1 w-full text-xs" type="date" name="valid_from" :value="old('valid_from')" required autofocus />
+                                        <x-jet-input id="valid_from" class="block mt-1 w-full text-xs" type="date" name="valid_from" :value="old('valid_from')" value="{{Carbon\Carbon::now()->format('Y-m-d')}}" required autofocus />
                                     </div>
                                     <div class="mt-4 col-span-6">
                                         <x-jet-label for="valid_to" value="{{ __('Valid Until') }}" />
-                                        <x-jet-input id="valid_to" class="block mt-1 w-full text-xs" type="date" name="valid_to" :value="old('valid_to')" required autofocus />
+                                        <x-jet-input id="valid_to" class="block mt-1 w-full text-xs" type="date" name="valid_to" :value="old('valid_to')" value="{{Carbon\Carbon::now()->addYear()->format('Y-m-d')}}" required autofocus />
                                     </div>
                                 </div>
                                 <div class="mt-4 intro-y">
@@ -54,14 +53,13 @@ FSIC Renewal
                                 </div>
                                 <div class="mt-4 intro-y">
                                     <x-jet-button>
-                                        {{ __('Save') }}
+                                        {{ __('Update') }}
                                     </x-jet-button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <!-- END: Post Content -->
             </div>
         </form>
     </div>
