@@ -10,23 +10,19 @@ FSIC Management
 
   <div class="py-12 p-2">
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-
-      <div class="grid grid-cols-2 lg:grid-cols-7 gap-2 text-center">
-        <a href="{{route('fsic.create')}}" class="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded-md">
-        <i class="fa fa-plus fa-lg" aria-hidden="true"></i> <br> Add New
+      <div class="flex gap-5">
+        <a href="{{route('fsic.create')}}" class="text-center bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded-md w-60">
+          <i class="fa fa-plus fa-lg" aria-hidden="true"></i> Add New
         </a>
-        <a href="{{route('fsic.renewal')}}" class="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded-md">
-        <i class="fa fa-check-circle fa-lg" aria-hidden="true"></i> <br> Renewal
-        </a>  
-      </div>
-
-      <div class="ml-auto w-full mt-4">
-        <div class="w-full flex items-center relative">
-          <x-jet-input id="search" class="text-sm border border-gray-400 rounded-lg w-full px-10" type="text" name="search" :value="old('search')" placeholder="Search Status, OR Number, FSIC Number, Establishment or Owner" autofocus />
-          <i class="text-gray-600 fa fa-search fa-lg absolute ml-3" aria-hidden="true"></i>
+        <div class="ml-auto w-full">
+          <form method="get">
+            <div class="w-full flex items-center relative">
+              <x-jet-input id="search" class="text-sm border border-gray-400 rounded-lg w-full px-10" type="text" name="search" :value="old('search')" placeholder="Search Status, OR Number, FSIC Number, Establishment or Owner" autofocus />
+              <i class="text-gray-600 fa fa-search fa-lg absolute ml-3" aria-hidden="true"></i>
+            </div>
+          </form>
         </div>
       </div>
-      <!-- component -->
       <section class="container mx-auto mt-5 mb-3">
         <div class="w-full overflow-hidden rounded-lg">
           <div class="w-full overflow-x-auto">
@@ -64,8 +60,14 @@ FSIC Management
                       </a> 
                       <a href="{{route('fsic.edit', $data->id)}}" class="bg-green-500 hover:bg-green-700 text-white py-2 px-4 rounded-md">
                         <i class="fa fa-pencil" aria-hidden="true"></i>
-                      </a>   
-                      @livewire('fsic-delete', ['fsic_tran' => $data], key($data->id))
+                      </a> 
+                      @if($data->valid_until > Carbon\Carbon::now()->format('Y-m-d') || $data->status == 0)  
+                        <a href="{{route('fsic.renewal', ['fsic_no'=>$data->fsic->fsic_no])}}" class="bg-yellow-500 hover:bg-yellow-700 text-white py-2 px-4 rounded-md">
+                          <i class="fa fa-check-circle" aria-hidden="true"></i>
+                        </a> 
+                      @else
+                        @livewire('fsic-delete', ['fsic_tran' => $data], key($data->id))
+                      @endif
                     </div>
                   </td>
                 </tr>

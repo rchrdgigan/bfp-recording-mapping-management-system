@@ -14,9 +14,7 @@ View FSIC
         <a href="{{route('fsic.index')}}" class="bg-gray-500 hover:bg-gray-700 text-white py-2 px-4 ml-3 rounded-md">
             <i class="fa fa-arrow-left" aria-hidden="true"></i> Back
         </a>
-
         <div class="pos grid grid-cols-12 gap-5 mt-5">
-            <!-- BEGIN: Post Content -->
             <div class="col-span-12 lg:col-span-4 text-center">
                 <h1 class="text-lg font-semibold">Information</h1>
                 <div class="mt-4 intro-y">
@@ -78,9 +76,7 @@ View FSIC
                     @endif
                 </div>
             </div>
-            <!-- END: Post Content -->
 
-            <!-- BEGIN: Road Map -->
             <div class="col-span-12 lg:col-span-8">
                 <div class="intro-y box p-10">
                     <h1 class="text-lg font-semibold text-center">Road Map</h1>
@@ -89,15 +85,13 @@ View FSIC
                     </div>
                 </div>
             </div>
-            <!-- END: Road Map -->
         </div>
     </div>
   </div>
 </x-app-layout>
 <script src="{{asset('dist/js/map.js')}}"></script>
 <script>
-    //Deafault location
-    L.marker([{{$fsic_trans->fsic->latitude}}, {{$fsic_trans->fsic->longitude}}]).addTo(map)
+    L.marker([{{$fsic_trans->fsic->latitude}}, {{$fsic_trans->fsic->longitude}}], {icon: store}).addTo(map)
     .bindPopup('<h2>{{$fsic_trans->fsic->establishment}}</h2><a class="text-xs">{{$fsic_trans->fsic->address}}</a>')
     .openPopup();
 </script>

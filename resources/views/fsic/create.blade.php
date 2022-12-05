@@ -20,14 +20,12 @@ FSIC New Transaction
         <form action="{{route('fsic.store')}}" method="post">
             @csrf
             <div class="flex mt-5 max-w-4xl mx-auto">
-                <!-- BEGIN: Post Info -->
                 <div class="w-full">
                     <div class="intro-y box p-10">
                         <h1 class="text-lg font-semibold text-center p-5">Map Setting</h1>
                         <div style="height:500px;">
                             <x-map/>
                         </div>
-                        <!-- Render Map -->
                         <div class="flex gap-2">
                             <x-jet-input id="lat" class="block mt-1 col-6 w-full text-xs" type="text" name="lat" :value="old('lat')" readonly autofocus placeholder="Click the map to auto generated lat or latitude" />
                             <x-jet-input id="lng" class="block mt-1 col-6 w-full text-xs" type="text" name="lng" :value="old('lng')" readonly autofocus placeholder="Click the map to auto generated lng or longitude" />
@@ -87,8 +85,6 @@ FSIC New Transaction
 
                     </div>
                 </div>
-                <!-- END: Post Info -->
-                
             </div>
         </form>
     </div>
@@ -96,13 +92,11 @@ FSIC New Transaction
 </x-app-layout>
 <script src="{{asset('dist/js/map.js')}}"></script>
 <script>
-    //If Deafault location is empty show the set location popup!
     var popup = L.popup()
         .setLatLng([12.6999972, 124.0333332])
         .setContent("Set location!")
         .openOn(map);
 
-    //Get here the long & lati
     function onMapClick(e) {
         document.getElementById('lat').value = e.latlng.lat;
         document.getElementById('lng').value = e.latlng.lng;
@@ -113,7 +107,6 @@ FSIC New Transaction
     }
     map.on('click', onMapClick);
 
-    //Deafault location
     @foreach($fsics as $data)
     L.marker([{{$data->latitude}}, {{$data->longitude}}], {icon: store}).addTo(map)
     .bindPopup('<h2>{{$data->establishment}}</h2><a class="text-xs">{{$data->address}}</a>')

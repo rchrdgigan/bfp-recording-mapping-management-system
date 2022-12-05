@@ -5,13 +5,48 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Fsic;
 use App\Models\FsicTransaction;
-
+use Carbon\Carbon;
 class FsicController extends Controller
 {
     public function index()
     {
-        $fsic_trans = FsicTransaction::with('fsic')->orderBy('created_at', 'desc')->paginate(5);
-        return view('fsic.index', compact('fsic_trans'));
+        if(request('search')){
+            $searchString = request('search');
+            
+            $fsic_trans = FsicTransaction::whereHas('fsic', function ($query) use ($searchString){
+                $query->where('fsic_no', $searchString)
+                ->orWhere('establishment', 'like', '%'.$searchString.'%')
+                ->orWhere('owner', 'like', '%'.$searchString.'%');
+            })
+            ->with(['fsic' => function($query) use ($searchString){
+                $query->where('fsic_no', $searchString)
+                ->orWhere('establishment', 'like', '%'.$searchString.'%')
+                ->orWhere('owner', 'like', '%'.$searchString.'%');
+            }])->orderBy('created_at', 'desc')->paginate(5);
+
+            if($fsic_trans->isEmpty()){
+                $fsic_trans = FsicTransaction::query()->when(request('search'), function($query){
+                    if(request('search') == 'Expired' || request('search') == 'expired'){
+                        $search = array(Carbon::now()->format('Y-m-d'), 0); 
+                    }else if(request('search') == 'Oldest' || request('search') == 'oldest'){
+                        $search = array(Carbon::now()->format('Y-m-d'), 1); 
+                    }else{
+                        $search = request('search');
+                    }
+                    if(request('search') == 'Expired' || request('search') == 'expired' || request('search') == 'Oldest' || request('search') == 'oldest'){
+                        $query->where('valid_until', '<', $search[0])
+                        ->where('status', '=', $search[1]);
+                    }else{
+                        $query->where('or_no', '=', $search);
+                    }
+    
+                })->orderBy('created_at', 'desc')->paginate(5);
+            }
+            return view('fsic.index', compact('fsic_trans'));
+        }else{
+            $fsic_trans = FsicTransaction::with('fsic')->orderBy('created_at', 'desc')->paginate(5);
+            return view('fsic.index', compact('fsic_trans'));
+        }
     }
 
     public function create()
@@ -115,7 +150,8 @@ class FsicController extends Controller
 
     public function renewalShow()
     {
-        $fsics = Fsic::get();
+        $fsic_no = request('fsic_no');
+        $fsics = Fsic::where('fsic_no',$fsic_no)->first();
         return view('fsic.renewal', compact('fsics'));
     }
 

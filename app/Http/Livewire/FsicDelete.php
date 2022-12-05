@@ -37,7 +37,7 @@ class FsicDelete extends Component
     public function delete($id)
     {
         FsicTransaction::where('status', true)->where('id',$id)->delete();
-        return redirect()->back();
+        return redirect()->route('fsic.index');
     }
 
     public function render()

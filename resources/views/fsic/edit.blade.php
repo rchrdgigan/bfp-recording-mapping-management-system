@@ -21,7 +21,6 @@ Edit FSIC
             @csrf
             @method('PUT')
             <div class="pos grid grid-cols-12 gap-5 mt-5">
-                <!-- BEGIN: Post Content -->
                 <div class="col-span-12 lg:col-span-4">
                     <div class="post intro-y overflow-hidden box">
                         <div class="post__content tab-content">
@@ -82,9 +81,7 @@ Edit FSIC
                         </div>
                     </div>
                 </div>
-                <!-- END: Post Content -->
 
-                <!-- BEGIN: Road Map -->
                 <div class="col-span-12 lg:col-span-8">
                     <div class="intro-y box p-10">
                         <h1 class="text-lg font-semibold text-center">Map Setting</h1>
@@ -98,22 +95,18 @@ Edit FSIC
                         </div>
                     </div>
                 </div>
-                <!-- END: Road Map -->
             </div>
         </form>
     </div>
   </div>
 </x-app-layout>
-
 <script src="{{asset('dist/js/map.js')}}"></script>
 <script>
-    //If Deafault location is empty show the set location popup!
     var popup = L.popup()
         .setLatLng([12.6999972, 124.0333332])
         .setContent("Set location!")
         .openOn(map);
 
-    //Get here the long & lati
     function onMapClick(e) {
         document.getElementById('lat').value = e.latlng.lat;
         document.getElementById('lng').value = e.latlng.lng;
@@ -124,8 +117,7 @@ Edit FSIC
     }
     map.on('click', onMapClick);
 
-    //Deafault location
-    L.marker([{{$fsic_trans->fsic->latitude}}, {{$fsic_trans->fsic->longitude}}]).addTo(map)
+    L.marker([{{$fsic_trans->fsic->latitude}}, {{$fsic_trans->fsic->longitude}}], {icon: store}).addTo(map)
     .bindPopup('<h2>{{$fsic_trans->fsic->establishment}}</h2><a class="text-xs">{{$fsic_trans->fsic->address}}</a>')
     .openPopup();
 </script>
