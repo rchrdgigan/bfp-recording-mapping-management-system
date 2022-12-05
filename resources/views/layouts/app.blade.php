@@ -55,27 +55,23 @@ window.addEventListener('swal:confirm', event => {
         icon: 'warning',
         title: event.detail.title,
         text: event.detail.text,
-        showCancelButton: true,
-        confirmButtonText: `Yes, Delete it!`,
-        denyButtonText: `Cancel`
+        showCancelButton:  event.detail.showCancelButton,
+        confirmButtonText: event.detail.confirmButtonText,
+        denyButtonText: `Cancel`,
     }).then((result) => {
         if (result.isConfirmed) {
-            window.livewire.emit('delete', event.detail.id)
-            Swal.fire({
-                position: 'top-center',
-                icon: 'success',
-                title: 'Successfully Deleted',
-                showConfirmButton: false,
-                timer: 1000
-            })
-        }else{
-            Swal.fire({
-                position: 'top-center',
-                icon: 'info',
-                title: 'Delete Cancelled!',
-                showConfirmButton: false,
-                timer: 1000
-            })
+            if(event.detail.confirmButtonText == 'Ok'){
+               
+            }else{
+                window.livewire.emit('delete', event.detail.id)
+                Swal.fire({
+                    position: 'top-center',
+                    icon: 'success',
+                    title: 'Successfully Deleted!',
+                    showConfirmButton: false,
+                    timer: 1000
+                })
+            }
         }
     });
 });

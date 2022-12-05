@@ -13,11 +13,25 @@ class FsicDelete extends Component
 
     public function deleteConfirm()
     {
-        $this->dispatchBrowserEvent('swal:confirm', [
-            'id' => $this->fsic_tran->id,
-            'title' => 'Are you sure?',
-            'text' => "You won't be able to revert this!"
-        ]);
+        $fsic_trans = FsicTransaction::where('status', true)->where('id',$this->fsic_tran->id)->first();
+        if($fsic_trans){
+            $this->dispatchBrowserEvent('swal:confirm', [
+                'id' => $this->fsic_tran->id,
+                'title' => 'Are you sure?',
+                'text' => "You won't be able to revert this!",
+                'showCancelButton' => true,
+                'confirmButtonText' => 'Yes, Delete it!',
+                'denyButtonText' => 'Cancel',
+            ]);
+        }else{
+            $this->dispatchBrowserEvent('swal:confirm', [
+                'title' => 'This status is new!',
+                'text' => "You won't be able to delete this!",
+                'showCancelButton' => false,
+                'confirmButtonText' => 'Ok',
+            ]);
+        }
+       
     }
 
     public function delete($id)

@@ -115,7 +115,7 @@ FSIC New Transaction
 
     //Deafault location
     @foreach($fsics as $data)
-    L.marker([{{$data->latitude}}, {{$data->longitude}}]).addTo(map)
+    L.marker([{{$data->latitude}}, {{$data->longitude}}], {icon: store}).addTo(map)
     .bindPopup('<h2>{{$data->establishment}}</h2><a class="text-xs">{{$data->address}}</a>')
     .openPopup();
     @endforeach

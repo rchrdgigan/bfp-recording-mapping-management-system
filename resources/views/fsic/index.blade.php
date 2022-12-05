@@ -10,19 +10,24 @@ FSIC Management
 
   <div class="py-12 p-2">
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-      <div class="flex col-span-12 gap-2">
+
+      <div class="grid grid-cols-2 lg:grid-cols-7 gap-2 text-center">
         <a href="{{route('fsic.create')}}" class="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded-md">
-        <i class="fa fa-plus" aria-hidden="true"></i> Add New
+        <i class="fa fa-plus fa-lg" aria-hidden="true"></i> <br> Add New
         </a>
         <a href="{{route('fsic.renewal')}}" class="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded-md">
-        <i class="fa fa-check-circle" aria-hidden="true"></i> Renewal
+        <i class="fa fa-check-circle fa-lg" aria-hidden="true"></i> <br> Renewal
         </a>  
-        <div class="ml-auto w-60">
-          <x-jet-input id="search" class="block mt-1 w-full text-xs" type="text" name="search" :value="old('search')" placeholder="Search" autofocus />
+      </div>
+
+      <div class="ml-auto w-full mt-4">
+        <div class="w-full flex items-center relative">
+          <x-jet-input id="search" class="text-sm border border-gray-400 rounded-lg w-full px-10" type="text" name="search" :value="old('search')" placeholder="Search Status, OR Number, FSIC Number, Establishment or Owner" autofocus />
+          <i class="text-gray-600 fa fa-search fa-lg absolute ml-3" aria-hidden="true"></i>
         </div>
       </div>
       <!-- component -->
-      <section class="container mx-auto mt-5">
+      <section class="container mx-auto mt-5 mb-3">
         <div class="w-full overflow-hidden rounded-lg">
           <div class="w-full overflow-x-auto">
             <table class="w-full table table-report">
@@ -75,7 +80,7 @@ FSIC Management
           </div>
         </div>
       </section>
-
+      {{$fsic_trans->links()}}
     </div>
   </div>
 
