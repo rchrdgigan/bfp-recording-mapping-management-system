@@ -67,10 +67,10 @@ View FSIC
                     {{$fsic_trans->or_no}}
                 </div>
                 <div class="mt-4 intro-y">
-                    @if($fsic_trans->valid_until < Carbon\Carbon::now()->format('Y-m-d'))
+                    @if($fsic_trans->valid_until <= Carbon\Carbon::now()->addDays(6)->format('Y-m-d'))
                         @if($fsic_trans->status <> 1)
-                            <a class="bg-teal-500 hover:bg-teal-700 text-white py-2 px-4 rounded-md">
-                                Renew
+                            <a class="bg-teal-500 hover:bg-teal-700 text-white py-2 px-4 ml-2 rounded-md">
+                                Message
                             </a>
                         @endif
                     @endif

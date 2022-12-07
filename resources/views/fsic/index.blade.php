@@ -10,15 +10,27 @@ FSIC Management
 
   <div class="py-12 p-2">
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-      <div class="flex gap-5">
-        <a href="{{route('fsic.create')}}" class="text-center bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded-md w-60">
-          <i class="fa fa-plus fa-lg" aria-hidden="true"></i> Add New
+      <div class="flex gap-2">
+        <a href="{{route('fsic.create')}}" class="text-center bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded-md w-40">
+          <i class="fa fa-plus fa-lg" aria-hidden="true"></i> Add
         </a>
         <div class="ml-auto w-full">
           <form method="get">
+            
             <div class="w-full flex items-center relative">
-              <x-jet-input id="search" class="text-sm border border-gray-400 rounded-lg w-full px-10" type="text" name="search" :value="old('search')" placeholder="Search Status, OR Number, FSIC Number, Establishment or Owner" autofocus />
+              <x-jet-input id="search" class="text-sm border border-gray-400 rounded-lg w-full px-10" type="text" name="search" :value="old('search')" value="{{request('search')}}" placeholder="Search Status, OR Number, FSIC Number, Establishment or Owner" autofocus />
               <i class="text-gray-600 fa fa-search fa-lg absolute ml-3" aria-hidden="true"></i>
+              <div class="w-60 flex ml-2">
+                <x-select/>
+              </div>
+              <button type="submit" class="text-center bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 ml-1 rounded-md">
+                Go
+              </button>
+              @if(request('search') || request('status'))
+              <a href="{{route('fsic.index')}}" class="text-center bg-gray-700 hover:bg-gray-500 text-white py-2 px-4 ml-1 rounded-md">
+                <i class="fa fa-close fa-lg" aria-hidden="true"></i>
+              </a>
+              @endif
             </div>
           </form>
         </div>
@@ -49,9 +61,35 @@ FSIC Management
                   <td class="text-xs px-4 py-3 text-ms ">{{$data->fsic->owner}}</td>
                   <td class="text-xs px-4 py-3 text-ms ">{{$data->fsic->address}}</td>
                   <td class="text-xs px-4 py-3 text-xs">
+                    @if($data->valid_until >= Carbon\Carbon::now()->addDays(6)->format('Y-m-d'))
                     <span class="px-2 py-1  leading-tight {{($data->valid_until > Carbon\Carbon::now()->format('Y-m-d')) ? ($data->status == 0) ? 'text-green-700 bg-green-100':'text-gray-700 bg-gray-100':($data->status == 1 ? 'text-gray-700 bg-gray-100':'text-orange-700 bg-orange-100')}}  rounded-sm">
                       {{($data->valid_until > Carbon\Carbon::now()->format('Y-m-d')) ? ($data->status == 0) ? 'New':'Oldest': ($data->status == 1 ? 'Oldest':'Expired')}}
                     </span>
+                    @else
+                      @if($data->remaining_days <= 5 && $data->status == 0)
+                        @if($data->remaining_days <= 5 && $data->remaining_days >= 2)
+                        <span class="px-2 py-1  leading-tight text-orange-700 bg-orange-100 rounded-sm">
+                          {{$data->remaining_days}} Days Left
+                        </span>
+                        @elseif($data->remaining_days == 1)
+                        <span class="px-2 py-1 leading-tight text-orange-700 bg-orange-100 rounded-sm">
+                          {{$data->remaining_days}} Day Left
+                        </span>
+                        @elseif($data->remaining_days >= 0)
+                        <span class="px-2 py-1 leading-tight text-orange-700 bg-orange-100 rounded-sm">
+                          Due Date
+                        </span>
+                        @else
+                        <span class="px-2 py-1 leading-tight text-orange-700 bg-orange-100 rounded-sm">
+                          Expired
+                        </span>
+                        @endif
+                      @else
+                        <span class="px-2 py-1  leading-tight {{($data->valid_until > Carbon\Carbon::now()->format('Y-m-d')) ? ($data->status == 0) ? 'text-green-700 bg-green-100':'text-gray-700 bg-gray-100':($data->status == 1 ? 'text-gray-700 bg-gray-100':'text-orange-700 bg-orange-100')}}  rounded-sm">
+                          {{($data->valid_until > Carbon\Carbon::now()->format('Y-m-d')) ? ($data->status == 0) ? 'New':'Oldest': ($data->status == 1 ? 'Oldest':'Expired')}}
+                        </span>
+                      @endif
+                    @endif
                   </td>
                   <td>
                     <div class="flex gap-1">
@@ -61,9 +99,9 @@ FSIC Management
                       <a href="{{route('fsic.edit', $data->id)}}" class="bg-green-500 hover:bg-green-700 text-white py-2 px-4 rounded-md">
                         <i class="fa fa-pencil" aria-hidden="true"></i>
                       </a> 
-                      @if($data->valid_until > Carbon\Carbon::now()->format('Y-m-d') || $data->status == 0)  
-                        <a href="{{route('fsic.renewal', ['fsic_no'=>$data->fsic->fsic_no])}}" class="bg-yellow-500 hover:bg-yellow-700 text-white py-2 px-4 rounded-md">
-                          <i class="fa fa-check-circle" aria-hidden="true"></i>
+                      @if($data->status == 0)
+                        <a href="{{route('fsic.renewal', ['fsic_no'=>$data->fsic->fsic_no])}}" class="bg-purple-500 hover:bg-purple-700 text-white py-2 px-4 rounded-md">
+                          <i class="fa-solid fa-arrows-spin" aria-hidden="true"></i>
                         </a> 
                       @else
                         @livewire('fsic-delete', ['fsic_tran' => $data], key($data->id))
