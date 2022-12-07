@@ -58,11 +58,11 @@ FSIC New Transaction
                         <div class="flex intro-y gap-2">
                             <div class="mt-4 col-span-6">
                                 <x-jet-label for="valid_from" value="{{ __('Valid For') }}" />
-                                <x-jet-input id="valid_from" class="block mt-1 w-full text-xs" type="date" name="valid_from" :value="old('valid_from')" required autofocus />
+                                <x-jet-input id="valid_from" class="block mt-1 w-full text-xs" type="date" name="valid_from" :value="old('valid_from')" value="{{Carbon\Carbon::now()->format('Y-m-d')}}" required autofocus />
                             </div>
                             <div class="mt-4 col-span-6">
                                 <x-jet-label for="valid_to" value="{{ __('Valid Until') }}" />
-                                <x-jet-input id="valid_to" class="block mt-1 w-full text-xs" type="date" name="valid_to" :value="old('valid_to')" required autofocus />
+                                <x-jet-input id="valid_to" class="block mt-1 w-full text-xs" type="date" name="valid_to" :value="old('valid_to')" value="{{Carbon\Carbon::now()->addYear()->format('Y-m-d')}}" required autofocus />
                             </div>
                         </div>
                         <div class="mt-4 intro-y">

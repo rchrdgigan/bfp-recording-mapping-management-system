@@ -26,25 +26,26 @@ class FsicController extends Controller
 
             if($fsic_trans->isEmpty()){
                 $fsic_trans = FsicTransaction::query()->when(request('search'), function($query){
-                    if(request('search') == 'Expired' || request('search') == 'expired'){
-                        $search = array(Carbon::now()->format('Y-m-d'), 0); 
-                    }else if(request('search') == 'Oldest' || request('search') == 'oldest'){
-                        $search = array(Carbon::now()->format('Y-m-d'), 1); 
-                    }else{
-                        $search = request('search');
-                    }
-                    if(request('search') == 'Expired' || request('search') == 'expired' || request('search') == 'Oldest' || request('search') == 'oldest'){
-                        $query->where('valid_until', '<', $search[0])
-                        ->where('status', '=', $search[1]);
-                    }else{
-                        $query->where('or_no', '=', $search);
-                    }
-    
-                })->orderBy('created_at', 'desc')->paginate(5);
+                    $search = request('search');
+                    $query->where('or_no', '=', $search);
+                })->latest('id')->paginate(5);
             }
             return view('fsic.index', compact('fsic_trans'));
+        }elseif(request('status')){
+            $fsic_trans = FsicTransaction::query()->when(request('status'), function($query){
+                if(request('status') == 'Expired'){
+                    $query->where('valid_until', '<=', Carbon::now()->format('Y-m-d'))->where('status', '=', 0);
+                }else if(request('status') == 'Before Expired'){
+                    $query->where('valid_until', '<=', Carbon::now()->addDays(6)->format('Y-m-d'))->where('status', '=', 0);
+                }else if(request('status') == 'Oldest'){
+                    $query->where('status', '=', 1);
+                }else if(request('status') == 'New'){
+                    $query->where('valid_until', '>', Carbon::now()->format('Y-m-d'))->where('status', '=', 0);
+                }
+            })->latest('id')->paginate(5);
+            return view('fsic.index', compact('fsic_trans'));
         }else{
-            $fsic_trans = FsicTransaction::with('fsic')->orderBy('created_at', 'desc')->paginate(5);
+            $fsic_trans = FsicTransaction::with('fsic')->latest('id')->paginate(5);
             return view('fsic.index', compact('fsic_trans'));
         }
     }
