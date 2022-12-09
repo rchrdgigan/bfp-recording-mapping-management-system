@@ -16,16 +16,19 @@
     </head>
     <style>
         #background___img {
-            background: linear-gradient( rgba(102, 0, 0, 0.4), rgba(0, 0, 102, 0.4) ), url('/image/background.jpg');
-            background-repeat: no-repeat;
-            background-position-y: center;
-            background-position-x: center;
+            background: linear-gradient( rgba(102, 0, 0, 0.4), rgba(0, 0, 102, 0.4) ), url('/image/background.jpg') no-repeat center center;
             background-size: cover;
             width: 100%;
         }
+       
         @media only screen and (max-width: 600px) {
             #background___img {
-                width: 0;
+                background: linear-gradient( rgba(102, 0, 0, 0.4), rgba(0, 0, 102, 0.4) ), url('/image/background.jpg') no-repeat center center;
+                background-size: cover;
+                position: absolute;
+                width: 100%;
+                height: 10%;
+                bottom: 0;
             }
         }
     </style>
@@ -38,3 +41,4 @@
         </div>
     </body>
 </html>
+
