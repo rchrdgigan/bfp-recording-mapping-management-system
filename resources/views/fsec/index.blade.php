@@ -1,24 +1,24 @@
 @section('title')
-FSIC Management
+FSEC Management
 @endsection
 <x-app-layout>
   <x-slot name="header">
       <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-          {{ __('FSIC Transaction Management') }}
+          {{ __('FSEC Transaction Management') }}
       </h2>
   </x-slot>
 
   <div class="py-12 p-2">
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
       <div class="flex gap-2">
-        <a href="{{route('fsic.create')}}" class="text-center bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded-md w-40">
+        <a href="{{route('fsec.create')}}" class="text-center bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded-md w-40">
           <i class="fa fa-plus fa-lg" aria-hidden="true"></i> Add
         </a>
         <div class="ml-auto w-full">
           <form method="get">
             
             <div class="w-full flex items-center relative">
-              <x-jet-input id="search" class="text-sm border border-gray-400 rounded-lg w-full px-10" type="text" name="search" :value="old('search')" value="{{request('search')}}" placeholder="Search Status, OR Number, FSIC Number, Establishment or Owner" autofocus />
+              <x-jet-input id="search" class="text-sm border border-gray-400 rounded-lg w-full px-10" type="text" name="search" :value="old('search')" value="{{request('search')}}" placeholder="Search Status, OR Number, FSEC Number, Project Name or Owner" autofocus />
               <i class="text-gray-600 fa fa-search fa-lg absolute ml-3" aria-hidden="true"></i>
               <div class="w-60 flex ml-2">
                 <x-select-status/>
@@ -27,7 +27,7 @@ FSIC Management
                 Go
               </button>
               @if(request('search') || request('status'))
-              <a href="{{route('fsic.index')}}" class="text-center bg-gray-700 hover:bg-gray-500 text-white py-2 px-4 ml-1 rounded-md">
+              <a href="{{route('fsec.index')}}" class="text-center bg-gray-700 hover:bg-gray-500 text-white py-2 px-4 ml-1 rounded-md">
                 <i class="fa fa-close fa-lg" aria-hidden="true"></i>
               </a>
               @endif
@@ -43,8 +43,8 @@ FSIC Management
                 <tr class="text-md font-bold tracking-wide text-left text-gray-900 bg-gray-100 uppercase border-b border-gray-600">
                   <th class="text-xs px-4 py-3">Date</th>
                   <th class="text-xs px-4 py-3">QR No.</th>
-                  <th class="text-xs px-4 py-3">FSIC No.</th>
-                  <th class="text-xs px-4 py-3">Establishment</th>
+                  <th class="text-xs px-4 py-3">FSEC No.</th>
+                  <th class="text-xs px-4 py-3">Project Name</th>
                   <th class="text-xs px-4 py-3">Owner</th>
                   <th class="text-xs px-4 py-3">Address</th>
                   <th class="text-xs px-4 py-3">Status</th>
@@ -52,14 +52,14 @@ FSIC Management
                 </tr>
               </thead>
               <tbody class="bg-white">
-                @forelse($fsic_trans as $data)
+                @forelse($fsec_trans as $data)
                 <tr class="text-gray-700">
                   <td class="text-xs px-4 py-3 text-ms ">{{Carbon\Carbon::parse($data->created_at)->format('M d, Y')}}</td>
                   <td class="text-xs px-4 py-3 text-ms ">{{$data->or_no}}</td>
-                  <td class="text-xs px-4 py-3 text-ms ">{{$data->fsic->fsic_no}}</td>
-                  <td class="text-xs px-4 py-3 text-ms ">{{$data->fsic->establishment}}</td>
-                  <td class="text-xs px-4 py-3 text-ms ">{{$data->fsic->owner}}</td>
-                  <td class="text-xs px-4 py-3 text-ms ">{{$data->fsic->address}}</td>
+                  <td class="text-xs px-4 py-3 text-ms ">{{$data->fsec->fsec_no}}</td>
+                  <td class="text-xs px-4 py-3 text-ms ">{{$data->fsec->establishment}}</td>
+                  <td class="text-xs px-4 py-3 text-ms ">{{$data->fsec->owner}}</td>
+                  <td class="text-xs px-4 py-3 text-ms ">{{$data->fsec->address}}</td>
                   <td class="text-xs px-4 py-3 text-xs">
                     @if($data->valid_until >= Carbon\Carbon::now()->addDays(6)->format('Y-m-d'))
                     <span class="px-2 py-1  leading-tight {{($data->valid_until > Carbon\Carbon::now()->format('Y-m-d')) ? ($data->status == 0) ? 'text-green-700 bg-green-100':'text-gray-700 bg-gray-100':($data->status == 1 ? 'text-gray-700 bg-gray-100':'text-orange-700 bg-orange-100')}}  rounded-sm">
@@ -93,18 +93,18 @@ FSIC Management
                   </td>
                   <td>
                     <div class="flex gap-1">
-                      <a href="{{route('fsic.show', $data->id)}}" class="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded-md">
+                      <a href="{{route('fsec.show', $data->id)}}" class="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded-md">
                         <i class="fa fa-eye" aria-hidden="true"></i>
                       </a> 
-                      <a href="{{route('fsic.edit', $data->id)}}" class="bg-green-500 hover:bg-green-700 text-white py-2 px-4 rounded-md">
+                      <a href="{{route('fsec.edit', $data->id)}}" class="bg-green-500 hover:bg-green-700 text-white py-2 px-4 rounded-md">
                         <i class="fa fa-pencil" aria-hidden="true"></i>
                       </a> 
                       @if($data->status == 0)
-                        <a href="{{route('fsic.renewal', ['fsic_no'=>$data->fsic->fsic_no])}}" class="bg-purple-500 hover:bg-purple-700 text-white py-2 px-4 rounded-md">
+                        <a href="{{route('fsec.renewal', ['fsec_no'=>$data->fsec->fsec_no])}}" class="bg-purple-500 hover:bg-purple-700 text-white py-2 px-4 rounded-md">
                           <i class="fa-solid fa-arrows-spin" aria-hidden="true"></i>
                         </a> 
                       @else
-                        @livewire('fsic-delete', ['fsic_tran' => $data], key($data->id))
+                        @livewire('fsec-delete', ['fsec_tran' => $data], key($data->id))
                       @endif
                     </div>
                   </td>
@@ -120,8 +120,7 @@ FSIC Management
           </div>
         </div>
       </section>
-      {{$fsic_trans->links()}}
+      {{$fsec_trans->links()}}
     </div>
   </div>
-
 </x-app-layout>

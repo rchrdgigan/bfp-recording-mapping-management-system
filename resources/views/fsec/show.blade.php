@@ -1,0 +1,93 @@
+@section('title')
+View FSEC
+@endsection
+
+<x-app-layout>
+  <x-slot name="header">
+      <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+          {{ __('View FSEC Transaction') }}
+      </h2>
+  </x-slot>
+
+  <div class="py-12">
+    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <a href="{{route('fsec.index')}}" class="bg-gray-500 hover:bg-gray-700 text-white py-2 px-4 ml-3 rounded-md">
+            <i class="fa fa-arrow-left" aria-hidden="true"></i> Back
+        </a>
+        <div class="pos grid grid-cols-12 gap-5 mt-5">
+            <div class="col-span-12 lg:col-span-4 text-center">
+                <h1 class="text-lg font-semibold">Information</h1>
+                <div class="mt-4 intro-y">
+                    <x-jet-label for="fsec_no" value="{{ __('FSEC No.') }}" />
+                    {{$fsec_trans->fsec->fsec_no}}
+                </div>
+                <div class="mt-4 intro-y">
+                    <x-jet-label for="estab" value="{{ __('Name of Project') }}" />
+                    {{$fsec_trans->fsec->establishment}}
+                </div>
+                <div class="mt-4 intro-y">
+                    <x-jet-label for="owner" value="{{ __('Name of Owner') }}" />
+                    {{$fsec_trans->fsec->owner}}
+                </div>
+                <div class="mt-4 intro-y">
+                    <x-jet-label for="contact" value="{{ __('Contact Number') }}" />
+                    {{$fsec_trans->fsec->contact}}
+                </div>
+                <div class="mt-4 intro-y">
+                    <x-jet-label for="address" value="{{ __('Address') }}" />
+                    {{$fsec_trans->fsec->address}}
+                </div>
+
+                <hr class="mt-4 intro-y">
+
+                <div class="flex intro-y gap-2">
+                    <div class="mt-4 col-span-6 mx-auto">
+                        <x-jet-label for="valid_from" value="{{ __('Valid For') }}" />
+                        {{Carbon\Carbon::parse($fsec_trans->for)->format('M d, Y')}}
+                    </div>
+                    <div class="mt-4 col-span-6 mx-auto">
+                        <x-jet-label for="valid_to" value="{{ __('Valid Until') }}" />
+                        {{Carbon\Carbon::parse($fsec_trans->valid_until)->format('M d, Y')}}
+                    </div>
+                </div>
+                <div class="mt-4 intro-y">
+                    <x-jet-label for="amount" value="{{ __('Amount') }}" />
+                    {{$fsec_trans->amount}}
+                </div>
+                <div class="mt-4 intro-y">
+                    <x-jet-label for="ops_no" value="{{ __('OPS Number') }}" />
+                    {{$fsec_trans->ops_no}}
+                </div>
+                <div class="mt-4 intro-y">
+                    <x-jet-label for="or_no" value="{{ __('OR Number') }}" />
+                    {{$fsec_trans->or_no}}
+                </div>
+                <div class="mt-4 intro-y">
+                    @if($fsec_trans->valid_until <= Carbon\Carbon::now()->addDays(6)->format('Y-m-d'))
+                        @if($fsec_trans->status <> 1)
+                            <a class="bg-teal-500 hover:bg-teal-700 text-white py-2 px-4 ml-2 rounded-md">
+                                Message
+                            </a>
+                        @endif
+                    @endif
+                </div>
+            </div>
+
+            <div class="col-span-12 lg:col-span-8">
+                <div class="intro-y box p-10">
+                    <h1 class="text-lg font-semibold text-center">Road Map</h1>
+                    <div style="height:500px;">
+                        <x-map/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+</x-app-layout>
+<script src="{{asset('dist/js/map.js')}}"></script>
+<script>
+    L.marker([{{$fsec_trans->fsec->latitude}}, {{$fsec_trans->fsec->longitude}}], {icon: office}).addTo(map)
+    .bindPopup('<h2>{{$fsec_trans->fsec->establishment}}</h2><a class="text-xs">{{$fsec_trans->fsec->address}}</a>')
+    .openPopup();
+</script>
