@@ -17,7 +17,7 @@ Dashboard
                     <div class="bg-white dark:bg-gray-800 overflow-hidden shadow sm:rounded-lg">
                         <div class="grid grid-cols-1">
 
-                            <a href="{{route('fsic.index')}}" class="text-gray-900 dark:text-white hover:bg-blue-100">
+                            <a href="{{route('fsic.index')}}" class="text-gray-900 dark:text-white hover:bg-blue-100 intro-y">
                                 <div class="p-5 border-t border-gray-200 dark:border-gray-700 md:border-t-0 md:border-l">
                                     <div class="flex items-center">
                                         <img src="{{asset('image/FSIC.PNG')}}" width="100px">
@@ -27,7 +27,7 @@ Dashboard
                                 </div>
                             </a>
 
-                            <a href="{{route('fsec.index')}}" class="text-gray-900 dark:text-white hover:bg-blue-100">
+                            <a href="{{route('fsec.index')}}" class="text-gray-900 dark:text-white hover:bg-blue-100 intro-y">
                                 <div class="p-5 border-t border-gray-200 dark:border-gray-700">
                                     <div class="flex items-center">
                                         <img src="{{asset('image/FSEC.PNG')}}" width="110px">
@@ -37,7 +37,7 @@ Dashboard
                                 </div>
                             </a>
 
-                            <a href="{{route('fsic.index')}}" class="text-gray-900 dark:text-white hover:bg-blue-100">
+                            <a href="{{route('map.index')}}" class="text-gray-900 dark:text-white hover:bg-blue-100 intro-y">
                                 <div class="p-5 border-t border-gray-200 dark:border-gray-700 md:border-l">
                                     <div class="flex items-center">
                                         <img src="https://upload.wikimedia.org/wikipedia/commons/f/f9/Map-icon.svg" width="40">
@@ -47,7 +47,7 @@ Dashboard
                                 </div>
                             </a>
 
-                            <a href="{{route('fsic.index')}}" class="text-gray-900 dark:text-white hover:bg-blue-100">
+                            <a href="{{route('fsic.index')}}" class="text-gray-900 dark:text-white hover:bg-blue-100 intro-y">
                                 <div class="p-5 border-t border-gray-200 dark:border-gray-700 md:border-l">
                                     <div class="flex items-center">
                                         <i class="text-green-500 fa fa-comment-sms fa-3x"></i>
@@ -59,10 +59,10 @@ Dashboard
                         </div>
                     </div>
                 </div>
-                <div class="w-full p-10 lg:p-0">
+                <div class="w-full p-10 lg:p-0 intro-x">
                     <h1 class="text-xl text-center mb-5 font-semibold">Road Map</h1>
 
-                    <div style="height:500px;">
+                    <div style="height:500px; border: 1px solid; padding: 10px; box-shadow: 5px 10px #888888;">
                         <x-map/>
                     </div>
                 </div>

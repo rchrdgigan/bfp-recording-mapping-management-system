@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\{FsicController,FsecController,DashboardController};
+use App\Http\Controllers\{FsicController,FsecController,DashboardController,MapController};
 
 Route::redirect('/', 'login');
 
@@ -21,7 +21,6 @@ Route::middleware([
         Route::post('/store', 'store')->name('store');
         Route::get('/edit/{id}', 'edit')->name('edit');
         Route::put('/update/{id}', 'update')->name('update');
-        Route::delete('/destroy/{id}', 'destroy')->name('destroy');
         Route::get('/renewal', 'renewalShow')->name('renewal');
         Route::post('/renew', 'renew')->name('renew');
     });
@@ -35,8 +34,13 @@ Route::middleware([
         Route::post('/store', 'store')->name('store');
         Route::get('/edit/{id}', 'edit')->name('edit');
         Route::put('/update/{id}', 'update')->name('update');
-        Route::delete('/destroy/{id}', 'destroy')->name('destroy');
         Route::get('/renewal', 'renewalShow')->name('renewal');
         Route::post('/renew', 'renew')->name('renew');
+    });
+    Route::controller(MapController::class)
+    ->as('map.')
+    ->prefix('map')
+    ->group(function(){
+        Route::get('/', 'index')->name('index');
     });
 });
