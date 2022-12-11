@@ -18,7 +18,7 @@ FSIC Management
           <form method="get">
             
             <div class="w-full flex items-center relative">
-              <x-jet-input id="search" class="text-sm border border-gray-400 rounded-lg w-full px-10" type="text" name="search" :value="old('search')" value="{{request('search')}}" placeholder="Search Status, OR Number, FSIC Number, Establishment or Owner" autofocus />
+              <x-jet-input id="search" class="text-sm border border-gray-400 rounded-lg w-full px-10" type="text" name="search" :value="old('search')" value="{{request('search')}}" placeholder="Search OR Number, FSIC Number, Establishment or Owner" autofocus />
               <i class="text-gray-600 fa fa-search fa-lg absolute ml-3" aria-hidden="true"></i>
               <div class="w-60 flex ml-2">
                 <x-select-status/>

@@ -1,4 +1,4 @@
-<select class="input sm:w-32 xxl:w-full mt-2 sm:mt-0 sm:w-auto text-sm border border-gray-400" name="address" required id="tabulator-html-filter-field">
+<select class="input sm:w-32 xxl:w-full sm:w-auto text-sm border border-gray-400" name="address" required id="tabulator-html-filter-field">
     @if(old('address'))
         <option value="{{old('address')}}">{{old('address')}}</option>
     @endif
