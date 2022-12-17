@@ -11,6 +11,7 @@ class FsicTransaction extends Model
     use HasFactory;
 
     protected $fillable = [
+        'fsic_no',
         'valid_for',
         'valid_until',
         'amount',

@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\{FsicController,FsecController,DashboardController,MapController};
+use App\Http\Controllers\{FsicController,FsecController,DashboardController,MapController,SmsController};
 
 Route::redirect('/', 'login');
 
@@ -21,7 +21,7 @@ Route::middleware([
         Route::post('/store', 'store')->name('store');
         Route::get('/edit/{id}', 'edit')->name('edit');
         Route::put('/update/{id}', 'update')->name('update');
-        Route::get('/renewal', 'renewalShow')->name('renewal');
+        Route::get('/renewal/{id}', 'renewalShow')->name('renewal');
         Route::post('/renew', 'renew')->name('renew');
     });
     Route::controller(FsecController::class)
@@ -34,7 +34,7 @@ Route::middleware([
         Route::post('/store', 'store')->name('store');
         Route::get('/edit/{id}', 'edit')->name('edit');
         Route::put('/update/{id}', 'update')->name('update');
-        Route::get('/renewal', 'renewalShow')->name('renewal');
+        Route::get('/renewal/{id}', 'renewalShow')->name('renewal');
         Route::post('/renew', 'renew')->name('renew');
     });
     Route::controller(MapController::class)
@@ -42,5 +42,13 @@ Route::middleware([
     ->prefix('map')
     ->group(function(){
         Route::get('/', 'index')->name('index');
+    });
+    Route::controller(SmsController::class)
+    ->as('sms.')
+    ->prefix('sms')
+    ->group(function(){
+        Route::get('/', 'index')->name('index');
+        Route::get('/create', 'create')->name('create');
+        Route::post('/store', 'store')->name('store');
     });
 });

@@ -10,7 +10,6 @@ class Fsic extends Model
     use HasFactory;
 
     protected $fillable = [
-        'fsic_no',
         'establishment',
         'owner',
         'business_type',

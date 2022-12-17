@@ -19,7 +19,7 @@ View FSIC
                 <h1 class="text-lg font-semibold">Information</h1>
                 <div class="mt-4 intro-y">
                     <x-jet-label for="fsic_no" value="{{ __('FSIC No.') }}" />
-                    {{$fsic_trans->fsic->fsic_no}}
+                    {{$fsic_trans->fsic_no}}
                 </div>
                 <div class="mt-4 intro-y">
                     <x-jet-label for="estab" value="{{ __('Name of Establishment') }}" />

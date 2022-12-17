@@ -56,7 +56,7 @@ FSEC Management
                 <tr class="text-gray-700">
                   <td class="text-xs px-4 py-3 text-ms ">{{Carbon\Carbon::parse($data->created_at)->format('M d, Y')}}</td>
                   <td class="text-xs px-4 py-3 text-ms ">{{$data->or_no}}</td>
-                  <td class="text-xs px-4 py-3 text-ms ">{{$data->fsec->fsec_no}}</td>
+                  <td class="text-xs px-4 py-3 text-ms ">{{$data->fsec_no}}</td>
                   <td class="text-xs px-4 py-3 text-ms ">{{$data->fsec->establishment}}</td>
                   <td class="text-xs px-4 py-3 text-ms ">{{$data->fsec->owner}}</td>
                   <td class="text-xs px-4 py-3 text-ms ">{{$data->fsec->address}}</td>
@@ -100,7 +100,7 @@ FSEC Management
                         <i class="fa fa-pencil" aria-hidden="true"></i>
                       </a> 
                       @if($data->status == 0)
-                        <a href="{{route('fsec.renewal', ['fsec_no'=>$data->fsec->fsec_no])}}" class="bg-purple-500 hover:bg-purple-700 text-white py-2 px-4 rounded-md">
+                        <a href="{{route('fsec.renewal', $data->fsec->id)}}" class="bg-purple-500 hover:bg-purple-700 text-white py-2 px-4 rounded-md">
                           <i class="fa-solid fa-arrows-spin" aria-hidden="true"></i>
                         </a> 
                       @else

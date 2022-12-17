@@ -25,7 +25,7 @@ Location Mapping
 
                             <div class="w-full flex mt-2">
                                 <div class="w-full flex">
-                                    <select class="input sm:w-32 xxl:w-full sm:w-auto text-sm border border-gray-400" name="location" id="tabulator-html-filter-field">
+                                    <select class="input w-full text-sm border border-gray-400" name="location" id="tabulator-html-filter-field">
                                         @if(request('location'))
                                             <option value="{{request('location')}}">{{request('location')}}</option>
                                         @endif

@@ -14,20 +14,19 @@ class FsicController extends Controller
             $searchString = request('search');
             
             $fsic_trans = FsicTransaction::whereHas('fsic', function ($query) use ($searchString){
-                $query->where('fsic_no', $searchString)
-                ->orWhere('establishment', 'like', '%'.$searchString.'%')
+                $query->where('establishment', 'like', '%'.$searchString.'%')
                 ->orWhere('owner', 'like', '%'.$searchString.'%');
             })
             ->with(['fsic' => function($query) use ($searchString){
-                $query->where('fsic_no', $searchString)
-                ->orWhere('establishment', 'like', '%'.$searchString.'%')
+                $query->where('establishment', 'like', '%'.$searchString.'%')
                 ->orWhere('owner', 'like', '%'.$searchString.'%');
-            }])->orderBy('created_at', 'desc')->paginate(5);
+            }])->latest('id')->paginate(5);
 
             if($fsic_trans->isEmpty()){
                 $fsic_trans = FsicTransaction::query()->when(request('search'), function($query){
                     $search = request('search');
-                    $query->where('or_no', '=', $search);
+                    $query->where('or_no', '=', $search)
+                    ->orWhere('fsic_no', $search);
                 })->latest('id')->paginate(5);
             }
             return view('fsic.index', compact('fsic_trans'));
@@ -36,7 +35,7 @@ class FsicController extends Controller
                 if(request('status') == 'Expired'){
                     $query->where('valid_until', '<=', Carbon::now()->format('Y-m-d'))->where('status', '=', 0);
                 }else if(request('status') == 'Before Expired'){
-                    $query->where('valid_until', '<=', Carbon::now()->addDays(6)->format('Y-m-d'))->where('status', '=', 0);
+                    $query->where('valid_until', '<=', Carbon::now()->addDays(5)->format('Y-m-d'))->where('status', '=', 0);
                 }else if(request('status') == 'Oldest'){
                     $query->where('status', '=', 1);
                 }else if(request('status') == 'New'){
@@ -59,7 +58,7 @@ class FsicController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'fsic_no' => 'required|unique:fsics|numeric',
+            'fsic_no' => 'required|unique:fsic_transactions|numeric',
             'establishment' => 'required|string|max:255',
             'owner' => 'required|string|max:255',
             'business_types' => 'required|string|max:255',
@@ -70,31 +69,27 @@ class FsicController extends Controller
             'valid_from' => 'required',
             'valid_to' => 'required',
             'amount' => 'required|numeric',
-            'ops_no' => 'required|numeric',
+            'ops_no' => 'required|unique:fsic_transactions|numeric',
             'or_no' => 'required|unique:fsic_transactions|numeric',
         ]);
-        $fsic = Fsic::where('fsic_no',$request->fsic_no)->first();
-        if(!$fsic){
-            $fsics = Fsic::create([
-                'fsic_no' => $request->fsic_no,
-                'establishment' => $request->establishment,
-                'owner' => $request->owner,
-                'business_type' => $request->business_types,
-                'contact' => $request->contact,
-                'address' => $request->address,
-                'latitude' => $request->lat,
-                'longitude' => $request->lng,
-            ]);
-            $fsics->fsic_transaction()->create([
-                'valid_for' => $request->valid_from,
-                'valid_until' => $request->valid_to,
-                'amount' => $request->amount,
-                'ops_no' => $request->ops_no,
-                'or_no' => $request->or_no,
-            ]);
-            return redirect()->back()->with('message','Successfully Saved!');
-        }
-        return redirect()->back()->with('error','Data already exist!');
+        $fsics = Fsic::create([
+            'establishment' => $request->establishment,
+            'owner' => $request->owner,
+            'business_type' => $request->business_types,
+            'contact' => $request->contact,
+            'address' => $request->address,
+            'latitude' => $request->lat,
+            'longitude' => $request->lng,
+        ]);
+        $fsics->fsic_transaction()->create([
+            'fsic_no' => $request->fsic_no,
+            'valid_for' => $request->valid_from,
+            'valid_until' => $request->valid_to,
+            'amount' => $request->amount,
+            'ops_no' => $request->ops_no,
+            'or_no' => $request->or_no,
+        ]);
+        return redirect()->back()->with('message','Successfully Saved!');
     }
 
     public function show($id)
@@ -128,6 +123,7 @@ class FsicController extends Controller
         ]);
         $fsic_trans = FsicTransaction::findOrFail($id);
         if($fsic_trans){
+            $fsic_trans->fsic_no = $request->fsic_no;
             $fsic_trans->valid_for = $request->valid_from;
             $fsic_trans->valid_until = $request->valid_to;
             $fsic_trans->amount = $request->amount;
@@ -135,7 +131,6 @@ class FsicController extends Controller
             $fsic_trans->or_no = $request->or_no;
             $fsic_trans->update();
             $fsic_trans->fsic()->update([
-                'fsic_no' => $request->fsic_no,
                 'establishment' => $request->establishment,
                 'owner' => $request->owner,
                 'business_type' => $request->business_types,
@@ -149,24 +144,23 @@ class FsicController extends Controller
         return redirect()->back()->with('error','Transaction not found!');
     }
 
-    public function renewalShow()
+    public function renewalShow($id)
     {
-        $fsic_no = request('fsic_no');
-        $fsics = Fsic::where('fsic_no',$fsic_no)->first();
+        $fsics = Fsic::findOrFail($id);
         return view('fsic.renewal', compact('fsics'));
     }
 
     public function renew(Request $request)
     {
         $validated = $request->validate([
-            'fsic_no' => 'required|numeric',
+            'fsic_no' => 'required|unique:fsic_transactions|numeric',
             'valid_from' => 'required',
             'valid_to' => 'required',
             'amount' => 'required|numeric',
             'ops_no' => 'required|numeric',
             'or_no' => 'required|numeric|unique:fsic_transactions',
         ]);
-        $fsic = Fsic::where('fsic_no',$request->fsic_no)->first();
+        $fsic = Fsic::findOrFail($request->fsic_id);
         if($fsic){
             $fsics = $fsic->fsic_transaction()->latest('created_at')->first();
             if($fsics){
@@ -174,6 +168,7 @@ class FsicController extends Controller
                 $fsics->update();
             }
             $fsic->fsic_transaction()->create([
+                'fsic_no' => $request->fsic_no,
                 'valid_for' => $request->valid_from,
                 'valid_until' => $request->valid_to,
                 'amount' => $request->amount,
@@ -182,6 +177,6 @@ class FsicController extends Controller
             ]);
             return redirect()->back()->with('message','Successfully Renew!');
         }
-        return redirect()->back()->with('error','No data found for this FSIC Number!');
+        return redirect()->back()->with('error','No data found for this FSIC!');
     }
 }

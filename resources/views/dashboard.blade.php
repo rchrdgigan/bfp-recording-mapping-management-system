@@ -47,7 +47,7 @@ Dashboard
                                 </div>
                             </a>
 
-                            <a href="{{route('fsic.index')}}" class="text-gray-900 dark:text-white hover:bg-blue-100 intro-y">
+                            <a href="{{route('sms.index')}}" class="text-gray-900 dark:text-white hover:bg-blue-100 intro-y">
                                 <div class="p-5 border-t border-gray-200 dark:border-gray-700 md:border-l">
                                     <div class="flex items-center">
                                         <i class="text-green-500 fa fa-comment-sms fa-3x"></i>

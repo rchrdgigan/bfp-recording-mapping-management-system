@@ -13,15 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('fsics', function (Blueprint $table) {
+        Schema::create('sms_api_settings', function (Blueprint $table) {
             $table->id();
-            $table->string('establishment');
-            $table->string('owner');
-            $table->string('business_type');
-            $table->string('contact');
-            $table->string('address');
-            $table->string('latitude');
-            $table->string('longitude');
             $table->timestamps();
         });
     }
@@ -33,6 +26,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('fsics');
+        Schema::dropIfExists('sms_api_settings');
     }
 };

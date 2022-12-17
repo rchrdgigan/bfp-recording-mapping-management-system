@@ -10,7 +10,6 @@ class Fsec extends Model
     use HasFactory;
 
     protected $fillable = [
-        'fsec_no',
         'establishment',
         'owner',
         'contact',

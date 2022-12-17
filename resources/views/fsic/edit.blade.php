@@ -28,7 +28,7 @@ Edit FSIC
                             <h1 class="text-lg font-semibold text-center">Information</h1>
                                 <div class="mt-4 intro-y">
                                     <x-jet-label for="fsic_no" value="{{ __('FSIC No.') }}" />
-                                    <x-jet-input id="fsic_no" class="block mt-1 w-full text-xs" type="text" name="fsic_no" :value="old('fsic_no')" value="{{$fsic_trans->fsic->fsic_no}}" required autofocus />
+                                    <x-jet-input id="fsic_no" class="block mt-1 w-full text-xs" type="text" name="fsic_no" :value="old('fsic_no')" value="{{$fsic_trans->fsic_no}}" required autofocus />
                                 </div>
                                 <div class="mt-4 intro-y">
                                     <x-jet-label for="estab" value="{{ __('Name of Establishment') }}" />

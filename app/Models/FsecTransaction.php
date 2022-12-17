@@ -11,6 +11,7 @@ class FsecTransaction extends Model
     use HasFactory;
 
     protected $fillable = [
+        'fsec_no',
         'valid_for',
         'valid_until',
         'amount',
