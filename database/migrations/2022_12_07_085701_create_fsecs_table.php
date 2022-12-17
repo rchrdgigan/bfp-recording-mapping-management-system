@@ -15,7 +15,6 @@ return new class extends Migration
     {
         Schema::create('fsecs', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('fsec_no');
             $table->string('establishment');
             $table->string('owner');
             $table->string('contact');

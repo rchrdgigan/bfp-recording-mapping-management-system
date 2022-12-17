@@ -24,10 +24,19 @@ FSIC Renewal
                     <div class="post intro-y overflow-hidden box">
                         <div class="post__content tab-content">
                             <div class="tab-content__pane p-5 active" id="content">
-                            <h1 class="text-lg font-semibold text-center">Renewal Information</h1>
+                                <h1 class="text-lg font-semibold text-center">Renewal Information</h1>
+                                <input type="hidden" name="fsic_id" value="{{$fsics->id}}">
+                                <div class="flex text-center">
+                                    <div class="mt-4 w-full intro-y">
+                                        <x-jet-label for="fsic_no" value="Name of Owner: " />{{$fsics->owner}}
+                                    </div>
+                                    <div class="mt-4 w-full intro-y">
+                                        <x-jet-label for="fsic_no" value="Name of Project: " />{{$fsics->establishment}}
+                                    </div>
+                                </div>
                                 <div class="mt-4 intro-y">
                                     <x-jet-label for="fsic_no" value="{{ __('FSIC No.') }}" />
-                                    <x-jet-input id="fsic_no" class="block mt-1 w-full text-xs" type="text" name="fsic_no" :value="old('fsic_no')" value="{{$fsics->fsic_no}}" required autofocus />
+                                    <x-jet-input id="fsic_no" class="block mt-1 w-full text-xs" type="text" name="fsic_no" :value="old('fsic_no')" required autofocus />
                                 </div>
                                 <div class="flex intro-y gap-2">
                                     <div class="mt-4 col-span-6">
@@ -53,7 +62,7 @@ FSIC Renewal
                                 </div>
                                 <div class="mt-4 intro-y">
                                     <x-jet-button>
-                                        {{ __('Update') }}
+                                        {{ __('Renew') }}
                                     </x-jet-button>
                                 </div>
                             </div>

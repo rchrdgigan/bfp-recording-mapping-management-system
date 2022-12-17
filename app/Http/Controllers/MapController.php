@@ -17,38 +17,36 @@ class MapController extends Controller
             $searchString = request('search');
             
             $fsec_trans = FsecTransaction::whereHas('fsec', function ($query) use ($searchString){
-                $query->where('fsec_no', $searchString)
-                ->orWhere('establishment', 'like', '%'.$searchString.'%')
+                $query->where('establishment', 'like', '%'.$searchString.'%')
                 ->orWhere('owner', 'like', '%'.$searchString.'%');
             })
             ->with(['fsec' => function($query) use ($searchString){
-                $query->where('fsec_no', $searchString)
-                ->orWhere('establishment', 'like', '%'.$searchString.'%')
+                $query->where('establishment', 'like', '%'.$searchString.'%')
                 ->orWhere('owner', 'like', '%'.$searchString.'%');
             }])->get();
 
             if($fsec_trans->isEmpty()){
                 $fsec_trans = FsecTransaction::query()->when(request('search'), function($query){
                     $search = request('search');
-                    $query->where('or_no', '=', $search);
+                    $query->where('or_no', '=', $search)
+                    ->orWhere('fsec_no', $search);
                 })->get();
             }
 
             $fsic_trans = FsicTransaction::whereHas('fsic', function ($query) use ($searchString){
-                $query->where('fsic_no', $searchString)
-                ->orWhere('establishment', 'like', '%'.$searchString.'%')
+                $query->where('establishment', 'like', '%'.$searchString.'%')
                 ->orWhere('owner', 'like', '%'.$searchString.'%');
             })
             ->with(['fsic' => function($query) use ($searchString){
-                $query->where('fsic_no', $searchString)
-                ->orWhere('establishment', 'like', '%'.$searchString.'%')
+                $query->where('establishment', 'like', '%'.$searchString.'%')
                 ->orWhere('owner', 'like', '%'.$searchString.'%');
             }])->get();
 
             if($fsic_trans->isEmpty()){
                 $fsic_trans = FsicTransaction::query()->when(request('search'), function($query){
                     $search = request('search');
-                    $query->where('or_no', '=', $search);
+                    $query->where('or_no', '=', $search)
+                    ->orWhere('fsic_no', $search);
                 })->get();
             }
             
@@ -60,7 +58,7 @@ class MapController extends Controller
                 if(request('status') == 'Expired'){
                     $query->where('valid_until', '<=', Carbon::now()->format('Y-m-d'))->where('status', '=', 0);
                 }else if(request('status') == 'Before Expired'){
-                    $query->where('valid_until', '<=', Carbon::now()->addDays(6)->format('Y-m-d'))->where('status', '=', 0);
+                    $query->where('valid_until', '<=', Carbon::now()->addDays(5)->format('Y-m-d'))->where('status', '=', 0);
                 }else if(request('status') == 'Oldest'){
                     $query->where('status', '=', 1);
                 }else if(request('status') == 'New'){
@@ -72,7 +70,7 @@ class MapController extends Controller
                 if(request('status') == 'Expired'){
                     $query->where('valid_until', '<=', Carbon::now()->format('Y-m-d'))->where('status', '=', 0);
                 }else if(request('status') == 'Before Expired'){
-                    $query->where('valid_until', '<=', Carbon::now()->addDays(6)->format('Y-m-d'))->where('status', '=', 0);
+                    $query->where('valid_until', '<=', Carbon::now()->addDays(5)->format('Y-m-d'))->where('status', '=', 0);
                 }else if(request('status') == 'Oldest'){
                     $query->where('status', '=', 1);
                 }else if(request('status') == 'New'){

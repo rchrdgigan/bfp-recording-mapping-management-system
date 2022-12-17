@@ -19,7 +19,7 @@ View FSEC
                 <h1 class="text-lg font-semibold">Information</h1>
                 <div class="mt-4 intro-y">
                     <x-jet-label for="fsec_no" value="{{ __('FSEC No.') }}" />
-                    {{$fsec_trans->fsec->fsec_no}}
+                    {{$fsec_trans->fsec_no}}
                 </div>
                 <div class="mt-4 intro-y">
                     <x-jet-label for="estab" value="{{ __('Name of Project') }}" />

@@ -93,7 +93,7 @@ FSIC New Transaction
 <script src="{{asset('dist/js/map.js')}}"></script>
 <script>
     var popup = L.popup()
-        .setLatLng([12.6999972, 124.0333332])
+        .setLatLng([12.703562025451129, 124.03654038906099])
         .setContent("Set location!")
         .openOn(map);
 

@@ -15,20 +15,19 @@ class FsecController extends Controller
             $searchString = request('search');
             
             $fsec_trans = FsecTransaction::whereHas('fsec', function ($query) use ($searchString){
-                $query->where('fsec_no', $searchString)
-                ->orWhere('establishment', 'like', '%'.$searchString.'%')
+                $query->where('establishment', 'like', '%'.$searchString.'%')
                 ->orWhere('owner', 'like', '%'.$searchString.'%');
             })
             ->with(['fsec' => function($query) use ($searchString){
-                $query->where('fsec_no', $searchString)
-                ->orWhere('establishment', 'like', '%'.$searchString.'%')
+                $query->where('establishment', 'like', '%'.$searchString.'%')
                 ->orWhere('owner', 'like', '%'.$searchString.'%');
-            }])->orderBy('created_at', 'desc')->paginate(5);
+            }])->latest('id')->paginate(5);
 
             if($fsec_trans->isEmpty()){
                 $fsec_trans = FsecTransaction::query()->when(request('search'), function($query){
                     $search = request('search');
-                    $query->where('or_no', '=', $search);
+                    $query->where('or_no', '=', $search)
+                    ->orWhere('fsec_no', $search);
                 })->latest('id')->paginate(5);
             }
             return view('fsec.index', compact('fsec_trans'));
@@ -37,7 +36,7 @@ class FsecController extends Controller
                 if(request('status') == 'Expired'){
                     $query->where('valid_until', '<=', Carbon::now()->format('Y-m-d'))->where('status', '=', 0);
                 }else if(request('status') == 'Before Expired'){
-                    $query->where('valid_until', '<=', Carbon::now()->addDays(6)->format('Y-m-d'))->where('status', '=', 0);
+                    $query->where('valid_until', '<=', Carbon::now()->addDays(5)->format('Y-m-d'))->where('status', '=', 0);
                 }else if(request('status') == 'Oldest'){
                     $query->where('status', '=', 1);
                 }else if(request('status') == 'New'){
@@ -60,7 +59,7 @@ class FsecController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'fsec_no' => 'required|unique:fsecs|numeric',
+            'fsec_no' => 'required|unique:fsec_transactions|numeric',
             'project' => 'required|string|max:255',
             'owner' => 'required|string|max:255',
             'contact' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:11|max:11',
@@ -70,30 +69,26 @@ class FsecController extends Controller
             'valid_from' => 'required',
             'valid_to' => 'required',
             'amount' => 'required|numeric',
-            'ops_no' => 'required|numeric',
+            'ops_no' => 'required|unique:fsec_transactions|numeric',
             'or_no' => 'required|unique:fsec_transactions|numeric',
         ]);
-        $fsec = Fsec::where('fsec_no',$request->fsec_no)->first();
-        if(!$fsec){
-            $fsecs = Fsec::create([
-                'fsec_no' => $request->fsec_no,
-                'establishment' => $request->project,
-                'owner' => $request->owner,
-                'contact' => $request->contact,
-                'address' => $request->address,
-                'latitude' => $request->lat,
-                'longitude' => $request->lng,
-            ]);
-            $fsecs->fsec_transaction()->create([
-                'valid_for' => $request->valid_from,
-                'valid_until' => $request->valid_to,
-                'amount' => $request->amount,
-                'ops_no' => $request->ops_no,
-                'or_no' => $request->or_no,
-            ]);
-            return redirect()->back()->with('message','Successfully Saved!');
-        }
-        return redirect()->back()->with('error','Data already exist!');
+        $fsecs = Fsec::create([
+            'establishment' => $request->project,
+            'owner' => $request->owner,
+            'contact' => $request->contact,
+            'address' => $request->address,
+            'latitude' => $request->lat,
+            'longitude' => $request->lng,
+        ]);
+        $fsecs->fsec_transaction()->create([
+            'fsec_no' => $request->fsec_no,
+            'valid_for' => $request->valid_from,
+            'valid_until' => $request->valid_to,
+            'amount' => $request->amount,
+            'ops_no' => $request->ops_no,
+            'or_no' => $request->or_no,
+        ]);
+        return redirect()->back()->with('message','Successfully Saved!');
     }
 
     public function show($id)
@@ -126,6 +121,7 @@ class FsecController extends Controller
         ]);
         $fsec_trans = FsecTransaction::findOrFail($id);
         if($fsec_trans){
+            $fsec_trans->fsec_no = $request->fsec_no;
             $fsec_trans->valid_for = $request->valid_from;
             $fsec_trans->valid_until = $request->valid_to;
             $fsec_trans->amount = $request->amount;
@@ -133,7 +129,6 @@ class FsecController extends Controller
             $fsec_trans->or_no = $request->or_no;
             $fsec_trans->update();
             $fsec_trans->fsec()->update([
-                'fsec_no' => $request->fsec_no,
                 'establishment' => $request->project,
                 'owner' => $request->owner,
                 'contact' => $request->contact,
@@ -146,24 +141,23 @@ class FsecController extends Controller
         return redirect()->back()->with('error','Transaction not found!');
     }
 
-    public function renewalShow()
+    public function renewalShow($id)
     {
-        $fsec_no = request('fsec_no');
-        $fsecs = Fsec::where('fsec_no',$fsec_no)->first();
+        $fsecs = Fsec::findOrFail($id);
         return view('fsec.renewal', compact('fsecs'));
     }
 
     public function renew(Request $request)
     {
         $validated = $request->validate([
-            'fsec_no' => 'required|numeric',
+            'fsec_no' => 'required|unique:fsec_transactions|numeric',
             'valid_from' => 'required',
             'valid_to' => 'required',
             'amount' => 'required|numeric',
             'ops_no' => 'required|numeric',
             'or_no' => 'required|numeric|unique:fsec_transactions',
         ]);
-        $fsec = Fsec::where('fsec_no',$request->fsec_no)->first();
+        $fsec = Fsec::findOrFail($request->fsec_id);
         if($fsec){
             $fsecs = $fsec->fsec_transaction()->latest('created_at')->first();
             if($fsecs){
@@ -171,6 +165,7 @@ class FsecController extends Controller
                 $fsecs->update();
             }
             $fsec->fsec_transaction()->create([
+                'fsec_no' => $request->fsec_no,
                 'valid_for' => $request->valid_from,
                 'valid_until' => $request->valid_to,
                 'amount' => $request->amount,
@@ -179,6 +174,6 @@ class FsecController extends Controller
             ]);
             return redirect()->back()->with('message','Successfully Renew!');
         }
-        return redirect()->back()->with('error','No data found for this FSEC Number!');
+        return redirect()->back()->with('error','No data found for this FSEC!');
     }
 }

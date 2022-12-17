@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('fsec_transactions', function (Blueprint $table) {
             $table->id();
             $table->foreignId('fsec_id')->references('id')->on('fsecs')->onUpdate('cascade')->onDelete('cascade');
+            $table->bigInteger('fsec_no');
             $table->date('valid_for');
             $table->date('valid_until');
             $table->double('amount');

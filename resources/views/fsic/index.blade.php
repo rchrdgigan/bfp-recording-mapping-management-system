@@ -56,7 +56,7 @@ FSIC Management
                 <tr class="text-gray-700">
                   <td class="text-xs px-4 py-3 text-ms ">{{Carbon\Carbon::parse($data->created_at)->format('M d, Y')}}</td>
                   <td class="text-xs px-4 py-3 text-ms ">{{$data->or_no}}</td>
-                  <td class="text-xs px-4 py-3 text-ms ">{{$data->fsic->fsic_no}}</td>
+                  <td class="text-xs px-4 py-3 text-ms ">{{$data->fsic_no}}</td>
                   <td class="text-xs px-4 py-3 text-ms ">{{$data->fsic->establishment}}</td>
                   <td class="text-xs px-4 py-3 text-ms ">{{$data->fsic->owner}}</td>
                   <td class="text-xs px-4 py-3 text-ms ">{{$data->fsic->address}}</td>
@@ -100,7 +100,7 @@ FSIC Management
                         <i class="fa fa-pencil" aria-hidden="true"></i>
                       </a> 
                       @if($data->status == 0)
-                        <a href="{{route('fsic.renewal', ['fsic_no'=>$data->fsic->fsic_no])}}" class="bg-purple-500 hover:bg-purple-700 text-white py-2 px-4 rounded-md">
+                        <a href="{{route('fsic.renewal', $data->fsic->id)}}" class="bg-purple-500 hover:bg-purple-700 text-white py-2 px-4 rounded-md">
                           <i class="fa-solid fa-arrows-spin" aria-hidden="true"></i>
                         </a> 
                       @else
