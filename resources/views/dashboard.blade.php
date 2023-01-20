@@ -3,7 +3,7 @@ Dashboard
 @endsection
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        <h2 class="font-bold text-xl text-gray-800 leading-tight">
             {{ __('Dashboard') }}
         </h2>
     </x-slot>
@@ -12,7 +12,7 @@ Dashboard
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 gap-5 lg:grid-cols-2">
                 <div class="w-full">
-                    <h1 class="text-xl text-center mb-5 font-semibold">Quick Access</h1>
+                    <h1 class="text-xl text-center text-white mb-5 font-bold">Quick Access</h1>
 
                     <div class="bg-white dark:bg-gray-800 overflow-hidden shadow sm:rounded-lg">
                         <div class="grid grid-cols-1">
@@ -21,8 +21,8 @@ Dashboard
                                 <div class="p-5 border-t border-gray-200 dark:border-gray-700 md:border-t-0 md:border-l">
                                     <div class="flex items-center">
                                         <img src="{{asset('image/FSIC.PNG')}}" width="100px">
-                                        <div class="ml-4 text-lg leading-7 font-semibold">Fire Safety Inspection Certificate</div>
-                                        <div class="ml-auto text-xl leading-7 font-semibold" id="count_fsic">0</div>
+                                        <div class="ml-4 text-lg leading-7 font-bold">Fire Safety Inspection Certificate</div>
+                                        <div class="ml-auto text-xl leading-7 font-bold" id="count_fsic">0</div>
                                     </div>
                                 </div>
                             </a>
@@ -31,8 +31,8 @@ Dashboard
                                 <div class="p-5 border-t border-gray-200 dark:border-gray-700">
                                     <div class="flex items-center">
                                         <img src="{{asset('image/FSEC.PNG')}}" width="110px">
-                                        <div class="ml-4 text-lg leading-7 font-semibold">Fire Safety Evaluation Clearance</div>
-                                        <div class="ml-auto text-xl leading-7 font-semibold" id="count_fsec">0</div>
+                                        <div class="ml-4 text-lg leading-7 font-bold">Fire Safety Evaluation Clearance</div>
+                                        <div class="ml-auto text-xl leading-7 font-bold" id="count_fsec">0</div>
                                     </div>
                                 </div>
                             </a>
@@ -41,8 +41,8 @@ Dashboard
                                 <div class="p-5 border-t border-gray-200 dark:border-gray-700 md:border-l">
                                     <div class="flex items-center">
                                         <img src="https://upload.wikimedia.org/wikipedia/commons/f/f9/Map-icon.svg" width="40">
-                                        <div class="ml-4 text-lg leading-7 font-semibold text-gray-900 dark:text-white">Location Mapping</div>
-                                        <div class="ml-auto text-xl leading-7 font-semibold" id="count_location">0</div>
+                                        <div class="ml-4 text-lg leading-7 font-bold text-gray-900 dark:text-white">Location Mapping</div>
+                                        <div class="ml-auto text-xl leading-7 font-bold" id="count_location">0</div>
                                     </div>
                                 </div>
                             </a>
@@ -51,8 +51,8 @@ Dashboard
                                 <div class="p-5 border-t border-gray-200 dark:border-gray-700 md:border-l">
                                     <div class="flex items-center">
                                         <i class="text-green-500 fa fa-comment-sms fa-3x"></i>
-                                        <div class="ml-4 text-lg leading-7 font-semibold text-gray-900 dark:text-white">SMS Notification</div>
-                                        <div class="ml-auto text-xl leading-7 font-semibold">0</div>
+                                        <div class="ml-4 text-lg leading-7 font-bold text-gray-900 dark:text-white">SMS Notification</div>
+                                        <div class="ml-auto text-xl leading-7 font-bold">0</div>
                                     </div>
                                 </div>
                             </a>
@@ -60,9 +60,9 @@ Dashboard
                     </div>
                 </div>
                 <div class="w-full p-10 lg:p-0 intro-x">
-                    <h1 class="text-xl text-center mb-5 font-semibold">Road Map</h1>
+                    <h1 class="text-xl text-white text-center mb-5 font-bold">Road Map</h1>
 
-                    <div style="height:500px; border: 1px solid; padding: 10px; box-shadow: 5px 10px #888888;">
+                    <div style="height:500px; border: 0px solid; box-shadow: 5px 10px #888888;">
                         <x-map/>
                     </div>
                 </div>
