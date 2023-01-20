@@ -26,7 +26,10 @@
     <body class="font-sans antialiased">
         <x-jet-banner />
 
-        <div class="min-h-screen bg-gray-100">
+        <div class="min-h-screen bg-gray-100" style="
+        background: rgb(204,5,5);
+        background: linear-gradient(0deg, rgba(204,5,5,1) 0%, rgba(181,24,24,1) 4%, rgba(63,86,210,1) 62%);
+        ">
             @livewire('navigation-menu')
             <!-- Page Heading -->
             @if (isset($header))

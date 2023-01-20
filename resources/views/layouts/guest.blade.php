@@ -21,7 +21,7 @@
             width: 100%;
         }
        
-        @media only screen and (max-width: 600px) {
+        /* @media only screen and (max-width: 600px) {
             #background___img {
                 background: linear-gradient( rgba(102, 0, 0, 0.4), rgba(0, 0, 102, 0.4) ), url('/image/background.jpg') no-repeat center center;
                 background-size: cover;
@@ -30,15 +30,13 @@
                 height: 10%;
                 bottom: 0;
             }
-        }
+        } */
     </style>
     <body>
-        <div class="flex">
             <div class="font-sans text-gray-900 antialiased w-full">
                 {{ $slot }}
             </div>
             <div id="background___img"></div>
-        </div>
     </body>
 </html>
 

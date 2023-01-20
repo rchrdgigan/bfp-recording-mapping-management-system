@@ -3,7 +3,7 @@ SMS Management
 @endsection
 <x-app-layout>
   <x-slot name="header">
-      <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+      <h2 class="font-bold text-xl text-gray-800 leading-tight">
           {{ __('SMS Management') }}
       </h2>
   </x-slot>
@@ -18,7 +18,7 @@ SMS Management
           <form method="get">
             
             <div class="w-full flex items-center relative">
-              <x-jet-input id="search" class="text-sm border border-gray-400 rounded-lg w-full px-10" type="text" name="search" :value="old('search')" value="{{request('search')}}" placeholder="Search message or number of recipient" autofocus />
+              <x-jet-input id="search" class="border border-gray-400 rounded-lg w-full px-10" type="text" name="search" :value="old('search')" value="{{request('search')}}" placeholder="Search message or number of recipient" autofocus />
               <i class="text-gray-600 fa fa-search fa-lg absolute ml-3" aria-hidden="true"></i>
               <button type="submit" class="text-center bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 ml-1 rounded-md">
                 Go
@@ -38,11 +38,11 @@ SMS Management
             <table class="w-full table table-report">
               <thead>
                 <tr class="text-md font-bold tracking-wide text-left text-gray-900 bg-gray-100 uppercase border-b border-gray-600">
-                  <th class="text-xs px-4 py-3">Date</th>
-                  <th class="text-xs px-4 py-3">Recipient Number</th>
-                  <th class="text-xs px-4 py-3">Messages</th>
-                  <th class="text-xs px-4 py-3">Status</th>
-                  <th class="text-xs px-4 py-3">Action</th>
+                  <th class="px-4 py-3">Date</th>
+                  <th class="px-4 py-3">Recipient Number</th>
+                  <th class="px-4 py-3">Messages</th>
+                  <th class="px-4 py-3">Status</th>
+                  <th class="px-4 py-3">Action</th>
                 </tr>
               </thead>
               <tbody class="bg-white">

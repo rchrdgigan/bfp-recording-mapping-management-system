@@ -2,7 +2,7 @@
     <x-jet-authentication-card>
         <x-slot name="logo">
             <img src="{{asset('image/bfp.png')}}" class="mx-auto">
-            <div class="w-60 text-center font-semibold">
+            <div class="w-60 text-center text-lg text-white font-semibold">
                 {{ config('app.name', 'Laravel') }}
             </div>
         </x-slot>

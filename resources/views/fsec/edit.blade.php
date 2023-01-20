@@ -28,19 +28,19 @@ Edit FSEC
                             <h1 class="text-lg font-semibold text-center">Information</h1>
                                 <div class="mt-4 intro-y">
                                     <x-jet-label for="fsec_no" value="{{ __('FSEC No.') }}" />
-                                    <x-jet-input id="fsec_no" class="block mt-1 w-full text-xs" type="text" name="fsec_no" :value="old('fsec_no')" value="{{$fsec_trans->fsec_no}}" required autofocus />
+                                    <x-jet-input id="fsec_no" class="block mt-1 w-full" type="text" name="fsec_no" :value="old('fsec_no')" value="{{$fsec_trans->fsec_no}}" required autofocus />
                                 </div>
                                 <div class="mt-4 intro-y">
                                     <x-jet-label for="estab" value="{{ __('Name of Project') }}" />
-                                    <x-jet-input id="estab" class="block mt-1 w-full text-xs" type="text" name="project" :value="old('project')" value="{{$fsec_trans->fsec->establishment}}" required autofocus />
+                                    <x-jet-input id="estab" class="block mt-1 w-full" type="text" name="project" :value="old('project')" value="{{$fsec_trans->fsec->establishment}}" required autofocus />
                                 </div>
                                 <div class="mt-4 intro-y">
                                     <x-jet-label for="owner" value="{{ __('Name of Owner') }}" />
-                                    <x-jet-input id="owner" class="block mt-1 w-full text-xs" type="text" name="owner" :value="old('owner')" value="{{$fsec_trans->fsec->owner}}" required autofocus />
+                                    <x-jet-input id="owner" class="block mt-1 w-full" type="text" name="owner" :value="old('owner')" value="{{$fsec_trans->fsec->owner}}" required autofocus />
                                 </div>
                                 <div class="mt-4 intro-y">
                                     <x-jet-label for="contact" value="{{ __('Contact Number') }}" />
-                                    <x-jet-input id="contact" class="block mt-1 w-full text-xs" type="text" name="contact" :value="old('contact')" value="{{$fsec_trans->fsec->contact}}" required autofocus />
+                                    <x-jet-input id="contact" class="block mt-1 w-full" type="text" name="contact" :value="old('contact')" value="{{$fsec_trans->fsec->contact}}" required autofocus />
                                 </div>
                                 <div class="mt-4 intro-y">
                                     <x-jet-label for="address" value="{{ __('Address') }}" />
@@ -49,24 +49,24 @@ Edit FSEC
                                 <div class="flex intro-y gap-2">
                                     <div class="mt-4 col-span-6">
                                         <x-jet-label for="valid_from" value="{{ __('Valid For') }}" />
-                                        <x-jet-input id="valid_from" class="block mt-1 w-full text-xs" type="date" name="valid_from" :value="old('valid_from')" value="{{$fsec_trans->valid_for}}" required autofocus />
+                                        <x-jet-input id="valid_from" class="block mt-1 w-full" type="date" name="valid_from" :value="old('valid_from')" value="{{$fsec_trans->valid_for}}" required autofocus />
                                     </div>
                                     <div class="mt-4 col-span-6">
                                         <x-jet-label for="valid_to" value="{{ __('Valid Until') }}" />
-                                        <x-jet-input id="valid_to" class="block mt-1 w-full text-xs" type="date" name="valid_to" :value="old('valid_to')" value="{{$fsec_trans->valid_until}}" required autofocus />
+                                        <x-jet-input id="valid_to" class="block mt-1 w-full" type="date" name="valid_to" :value="old('valid_to')" value="{{$fsec_trans->valid_until}}" required autofocus />
                                     </div>
                                 </div>
                                 <div class="mt-4 intro-y">
                                     <x-jet-label for="amount" value="{{ __('Amount') }}" />
-                                    <x-jet-input id="amount" class="block mt-1 w-full text-xs" type="text" name="amount" :value="old('amount')" value="{{$fsec_trans->amount}}" required autofocus />
+                                    <x-jet-input id="amount" class="block mt-1 w-full" type="text" name="amount" :value="old('amount')" value="{{$fsec_trans->amount}}" required autofocus />
                                 </div>
                                 <div class="mt-4 intro-y">
                                     <x-jet-label for="ops_no" value="{{ __('OPS Number') }}" />
-                                    <x-jet-input id="ops_no" class="block mt-1 w-full text-xs" type="text" name="ops_no" :value="old('ops_no')" value="{{$fsec_trans->ops_no}}" required autofocus />
+                                    <x-jet-input id="ops_no" class="block mt-1 w-full" type="text" name="ops_no" :value="old('ops_no')" value="{{$fsec_trans->ops_no}}" required autofocus />
                                 </div>
                                 <div class="mt-4 intro-y">
                                     <x-jet-label for="or_no" value="{{ __('OR Number') }}" />
-                                    <x-jet-input id="or_no" class="block mt-1 w-full text-xs" type="text" name="or_no" :value="old('or_no')" value="{{$fsec_trans->or_no}}" required autofocus />
+                                    <x-jet-input id="or_no" class="block mt-1 w-full" type="text" name="or_no" :value="old('or_no')" value="{{$fsec_trans->or_no}}" required autofocus />
                                 </div>
                                 <div class="mt-4 intro-y">
                                     <x-jet-button>
@@ -86,8 +86,8 @@ Edit FSEC
                         </div>
                         <!-- Render Map -->
                         <div class="flex gap-2">
-                            <x-jet-input id="lat" class="block mt-1 col-6 w-full text-xs" type="text" name="lat" :value="old('lat')" value="{{$fsec_trans->fsec->latitude}}" readonly autofocus placeholder="Click the map to auto generated lat or latitude" />
-                            <x-jet-input id="lng" class="block mt-1 col-6 w-full text-xs" type="text" name="lng" :value="old('lng')" value="{{$fsec_trans->fsec->longitude}}" readonly autofocus placeholder="Click the map to auto generated lng or longitude" />
+                            <x-jet-input id="lat" class="block mt-1 col-6 w-full" type="text" name="lat" :value="old('lat')" value="{{$fsec_trans->fsec->latitude}}" readonly autofocus placeholder="Click the map to auto generated lat or latitude" />
+                            <x-jet-input id="lng" class="block mt-1 col-6 w-full" type="text" name="lng" :value="old('lng')" value="{{$fsec_trans->fsec->longitude}}" readonly autofocus placeholder="Click the map to auto generated lng or longitude" />
                         </div>
                     </div>
                 </div>

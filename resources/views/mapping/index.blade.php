@@ -4,7 +4,7 @@ Location Mapping
 
 <x-app-layout>
   <x-slot name="header">
-      <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+      <h2 class="font-bold text-xl text-gray-800 leading-tight">
           {{ __('Location Mapping') }}
       </h2>
   </x-slot>
@@ -13,19 +13,19 @@ Location Mapping
         <div class="pos grid grid-cols-12 gap-5 mt-5">
             <div class="col-span-12">
                 <div class="intro-y box p-10">
-                    <h1 class="text-lg font-semibold text-center">Road Map</h1>
+                    <h1 class="text-lg font-bold text-center">Road Map</h1>
 
                     <div class="mt-4 ml-auto w-full">
                         <form method="get">
                             
                             <div class="w-full flex items-center relative">
-                                <x-jet-input id="search" class="text-sm border border-gray-400 rounded-lg w-full px-10" type="text" name="search" :value="old('search')" value="{{request('search')}}" placeholder="Search FSIC Number, FSEC Number, Establishment or Owner" autofocus />
+                                <x-jet-input id="search" class="border border-gray-400 rounded-lg w-full px-10" type="text" name="search" :value="old('search')" value="{{request('search')}}" placeholder="Search FSIC Number, FSEC Number, Establishment or Owner" autofocus />
                                 <i class="text-gray-600 fa fa-search fa-lg absolute ml-3" aria-hidden="true"></i>
                             </div>
 
                             <div class="w-full flex mt-2">
                                 <div class="w-full flex">
-                                    <select class="input w-full text-sm border border-gray-400" name="location" id="tabulator-html-filter-field">
+                                    <select class="input w-full border border-gray-400" name="location" id="tabulator-html-filter-field">
                                         @if(request('location'))
                                             <option value="{{request('location')}}">{{request('location')}}</option>
                                         @endif

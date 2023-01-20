@@ -36,29 +36,29 @@ FSEC Renewal
                                 </div>
                                 <div class="mt-4 intro-y">
                                     <x-jet-label for="fsec_no" value="{{ __('FSEC No.') }}" />
-                                    <x-jet-input id="fsec_no" class="block mt-1 w-full text-xs" type="text" name="fsec_no" :value="old('fsec_no')" required autofocus />
+                                    <x-jet-input id="fsec_no" class="block mt-1 w-full" type="text" name="fsec_no" :value="old('fsec_no')" required autofocus />
                                 </div>
                                 <div class="flex intro-y gap-2">
                                     <div class="mt-4 col-span-6">
                                         <x-jet-label for="valid_from" value="{{ __('Valid For') }}" />
-                                        <x-jet-input id="valid_from" class="block mt-1 w-full text-xs" type="date" name="valid_from" :value="old('valid_from')" value="{{Carbon\Carbon::now()->format('Y-m-d')}}" required autofocus />
+                                        <x-jet-input id="valid_from" class="block mt-1 w-full" type="date" name="valid_from" :value="old('valid_from')" value="{{Carbon\Carbon::now()->format('Y-m-d')}}" required autofocus />
                                     </div>
                                     <div class="mt-4 col-span-6">
                                         <x-jet-label for="valid_to" value="{{ __('Valid Until') }}" />
-                                        <x-jet-input id="valid_to" class="block mt-1 w-full text-xs" type="date" name="valid_to" :value="old('valid_to')" value="{{Carbon\Carbon::now()->addYear()->format('Y-m-d')}}" required autofocus />
+                                        <x-jet-input id="valid_to" class="block mt-1 w-full" type="date" name="valid_to" :value="old('valid_to')" value="{{Carbon\Carbon::now()->addYear()->format('Y-m-d')}}" required autofocus />
                                     </div>
                                 </div>
                                 <div class="mt-4 intro-y">
                                     <x-jet-label for="amount" value="{{ __('Amount') }}" />
-                                    <x-jet-input id="amount" class="block mt-1 w-full text-xs" type="text" name="amount" :value="old('amount')" required autofocus />
+                                    <x-jet-input id="amount" class="block mt-1 w-full" type="text" name="amount" :value="old('amount')" required autofocus />
                                 </div>
                                 <div class="mt-4 intro-y">
                                     <x-jet-label for="ops_no" value="{{ __('OPS Number') }}" />
-                                    <x-jet-input id="ops_no" class="block mt-1 w-full text-xs" type="text" name="ops_no" :value="old('ops_no')" required autofocus />
+                                    <x-jet-input id="ops_no" class="block mt-1 w-full" type="text" name="ops_no" :value="old('ops_no')" required autofocus />
                                 </div>
                                 <div class="mt-4 intro-y">
                                     <x-jet-label for="or_no" value="{{ __('OR Number') }}" />
-                                    <x-jet-input id="or_no" class="block mt-1 w-full text-xs" type="text" name="or_no" :value="old('or_no')" required autofocus />
+                                    <x-jet-input id="or_no" class="block mt-1 w-full" type="text" name="or_no" :value="old('or_no')" required autofocus />
                                 </div>
                                 <div class="mt-4 intro-y">
                                     <x-jet-button>

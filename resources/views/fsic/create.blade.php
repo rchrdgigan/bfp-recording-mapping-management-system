@@ -27,29 +27,29 @@ FSIC New Transaction
                             <x-map/>
                         </div>
                         <div class="flex gap-2">
-                            <x-jet-input id="lat" class="block mt-1 col-6 w-full text-xs" type="text" name="lat" :value="old('lat')" readonly placeholder="Click the map to auto generated lat or latitude" />
-                            <x-jet-input id="lng" class="block mt-1 col-6 w-full text-xs" type="text" name="lng" :value="old('lng')" readonly placeholder="Click the map to auto generated lng or longitude" />
+                            <x-jet-input id="lat" class="block mt-1 col-6 w-full" type="text" name="lat" :value="old('lat')" readonly placeholder="Click the map to auto generated lat or latitude" />
+                            <x-jet-input id="lng" class="block mt-1 col-6 w-full" type="text" name="lng" :value="old('lng')" readonly placeholder="Click the map to auto generated lng or longitude" />
                         </div>
                         <h1 class="text-lg font-semibold text-center pt-5">Business Information</h1>
                         <div class="mt-4 intro-y">
                             <x-jet-label for="fsic_no" value="{{ __('FSIC No.') }}" />
-                            <x-jet-input id="fsic_no" class="block mt-1 w-full text-xs" type="text" name="fsic_no" :value="old('fsic_no')" required />
+                            <x-jet-input id="fsic_no" class="block mt-1 w-full" type="text" name="fsic_no" :value="old('fsic_no')" required />
                         </div>
                         <div class="mt-4 intro-y">
                             <x-jet-label for="estab" value="{{ __('Name of Establishment') }}" />
-                            <x-jet-input id="estab" class="block mt-1 w-full text-xs" type="text" name="establishment" :value="old('establishment')" required />
+                            <x-jet-input id="estab" class="block mt-1 w-full" type="text" name="establishment" :value="old('establishment')" required />
                         </div>
                         <div class="mt-4 intro-y">
                             <x-jet-label for="owner" value="{{ __('Name of Owner') }}" />
-                            <x-jet-input id="owner" class="block mt-1 w-full text-xs" type="text" name="owner" :value="old('owner')" required />
+                            <x-jet-input id="owner" class="block mt-1 w-full" type="text" name="owner" :value="old('owner')" required />
                         </div>
                         <div class="mt-4 intro-y">
                             <x-jet-label for="business_types" value="{{ __('Business Types') }}" />
-                            <x-jet-input id="business_types" class="block mt-1 w-full text-xs" type="text" name="business_types" :value="old('business_types')" required />
+                            <x-jet-input id="business_types" class="block mt-1 w-full" type="text" name="business_types" :value="old('business_types')" required />
                         </div>
                         <div class="mt-4 intro-y">
                             <x-jet-label for="contact" value="{{ __('Contact Number') }}" />
-                            <x-jet-input id="contact" class="block mt-1 w-full text-xs" type="text" name="contact" :value="old('contact')" required />
+                            <x-jet-input id="contact" class="block mt-1 w-full" type="text" name="contact" :value="old('contact')" required />
                         </div>
                         <div class="mt-4 intro-y">
                             <x-jet-label for="address" value="{{ __('Address') }}" />
@@ -58,24 +58,24 @@ FSIC New Transaction
                         <div class="flex intro-y gap-2">
                             <div class="mt-4 col-span-6">
                                 <x-jet-label for="valid_from" value="{{ __('Valid For') }}" />
-                                <x-jet-input id="valid_from" class="block mt-1 w-full text-xs" type="date" name="valid_from" :value="old('valid_from')" value="{{Carbon\Carbon::now()->format('Y-m-d')}}" required />
+                                <x-jet-input id="valid_from" class="block mt-1 w-full" type="date" name="valid_from" :value="old('valid_from')" value="{{Carbon\Carbon::now()->format('Y-m-d')}}" required />
                             </div>
                             <div class="mt-4 col-span-6">
                                 <x-jet-label for="valid_to" value="{{ __('Valid Until') }}" />
-                                <x-jet-input id="valid_to" class="block mt-1 w-full text-xs" type="date" name="valid_to" :value="old('valid_to')" value="{{Carbon\Carbon::now()->addYear()->format('Y-m-d')}}" required />
+                                <x-jet-input id="valid_to" class="block mt-1 w-full" type="date" name="valid_to" :value="old('valid_to')" value="{{Carbon\Carbon::now()->addYear()->format('Y-m-d')}}" required />
                             </div>
                         </div>
                         <div class="mt-4 intro-y">
                             <x-jet-label for="amount" value="{{ __('Amount') }}" />
-                            <x-jet-input id="amount" class="block mt-1 w-full text-xs" type="text" name="amount" :value="old('amount')" required />
+                            <x-jet-input id="amount" class="block mt-1 w-full" type="text" name="amount" :value="old('amount')" required />
                         </div>
                         <div class="mt-4 intro-y">
                             <x-jet-label for="ops_no" value="{{ __('OPS Number') }}" />
-                            <x-jet-input id="ops_no" class="block mt-1 w-full text-xs" type="text" name="ops_no" :value="old('ops_no')" required />
+                            <x-jet-input id="ops_no" class="block mt-1 w-full" type="text" name="ops_no" :value="old('ops_no')" required />
                         </div>
                         <div class="mt-4 intro-y">
                             <x-jet-label for="or_no" value="{{ __('OR Number') }}" />
-                            <x-jet-input id="or_no" class="block mt-1 w-full text-xs" type="text" name="or_no" :value="old('or_no')" required />
+                            <x-jet-input id="or_no" class="block mt-1 w-full" type="text" name="or_no" :value="old('or_no')" required />
                         </div>
                         <div class="mt-4 intro-y">
                             <x-jet-button>
