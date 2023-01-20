@@ -4,7 +4,7 @@ View FSIC
 
 <x-app-layout>
   <x-slot name="header">
-      <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+      <h2 class="font-bold text-xl text-gray-800 leading-tight">
           {{ __('View FSIC Transaction') }}
       </h2>
   </x-slot>
@@ -15,56 +15,56 @@ View FSIC
             <i class="fa fa-arrow-left" aria-hidden="true"></i> Back
         </a>
         <div class="pos grid grid-cols-12 gap-5 mt-5">
-            <div class="col-span-12 lg:col-span-4 text-center">
-                <h1 class="text-lg font-semibold">Information</h1>
+            <div class="col-span-12 lg:col-span-4 text-center text-white">
+                <h1 class="text-lg font-bold">Information</h1>
                 <div class="mt-4 intro-y">
-                    <x-jet-label for="fsic_no" value="{{ __('FSIC No.') }}" />
-                    {{$fsic_trans->fsic_no}}
+                    <label class="font-medium">{{ __('FSIC No.') }}</label><br>
+                    <label class="font-medium">{{$fsic_trans->fsic_no}}</label>
                 </div>
                 <div class="mt-4 intro-y">
-                    <x-jet-label for="estab" value="{{ __('Name of Establishment') }}" />
-                    {{$fsic_trans->fsic->establishment}}
+                    <label class="font-medium">{{ __('Name of Establishment') }}</label><br>
+                    <label class="font-medium">{{$fsic_trans->fsic->establishment}}</label>
                 </div>
                 <div class="mt-4 intro-y">
-                    <x-jet-label for="owner" value="{{ __('Name of Owner') }}" />
-                    {{$fsic_trans->fsic->owner}}
+                    <label class="font-medium">{{ __('Name of Owner') }}</label><br>
+                    <label class="font-medium">{{$fsic_trans->fsic->owner}}</label>
                 </div>
                 <div class="mt-4 intro-y">
-                    <x-jet-label for="business_types" value="{{ __('Business Types') }}" />
-                    {{$fsic_trans->fsic->business_type}}
+                    <label class="font-medium">{{ __('Business Types') }}</label><br>
+                    <label class="font-medium">{{$fsic_trans->fsic->business_type}}</label>
                 </div>
                 <div class="mt-4 intro-y">
-                    <x-jet-label for="contact" value="{{ __('Contact Number') }}" />
-                    {{$fsic_trans->fsic->contact}}
+                    <label class="font-medium">{{ __('Contact Number') }}</label><br>
+                    <label class="font-medium">{{$fsic_trans->fsic->contact}}</label>
                 </div>
                 <div class="mt-4 intro-y">
-                    <x-jet-label for="address" value="{{ __('Address') }}" />
-                    {{$fsic_trans->fsic->address}}
+                    <label class="font-medium">{{ __('Address') }}</label><br>
+                    <label class="font-medium">{{$fsic_trans->fsic->address}}</label>
                 </div>
 
                 <hr class="mt-4 intro-y">
 
                 <div class="flex intro-y gap-2">
                     <div class="mt-4 col-span-6 mx-auto">
-                        <x-jet-label for="valid_from" value="{{ __('Valid For') }}" />
+                        <label class="font-medium">{{ __('Valid For') }}</label><br>
                         {{Carbon\Carbon::parse($fsic_trans->for)->format('M d, Y')}}
                     </div>
                     <div class="mt-4 col-span-6 mx-auto">
-                        <x-jet-label for="valid_to" value="{{ __('Valid Until') }}" />
-                        {{Carbon\Carbon::parse($fsic_trans->valid_until)->format('M d, Y')}}
+                        <label class="font-medium">{{ __('Valid Until') }}</label><br>
+                        <label class="font-medium">{{Carbon\Carbon::parse($fsic_trans->valid_until)->format('M d, Y')}}</label>
                     </div>
                 </div>
                 <div class="mt-4 intro-y">
-                    <x-jet-label for="amount" value="{{ __('Amount') }}" />
-                    {{$fsic_trans->amount}}
+                    <label class="font-medium">{{ __('Amount') }}</label><br>
+                    <label class="font-medium">{{$fsic_trans->amount}}</label>
                 </div>
                 <div class="mt-4 intro-y">
-                    <x-jet-label for="ops_no" value="{{ __('OPS Number') }}" />
-                    {{$fsic_trans->ops_no}}
+                    <label class="font-medium">{{ __('OPS Number') }}</label><br>
+                    <label class="font-medium">{{$fsic_trans->ops_no}}</label>
                 </div>
                 <div class="mt-4 intro-y">
-                    <x-jet-label for="or_no" value="{{ __('OR Number') }}" />
-                    {{$fsic_trans->or_no}}
+                    <label class="font-medium">{{ __('OR Number') }}</label><br>
+                    <label class="font-medium">{{$fsic_trans->or_no}}</label>
                 </div>
                 <div class="mt-4 intro-y">
                     @if($fsic_trans->valid_until <= Carbon\Carbon::now()->addDays(6)->format('Y-m-d'))
