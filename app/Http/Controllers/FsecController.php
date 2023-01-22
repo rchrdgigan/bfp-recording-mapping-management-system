@@ -59,7 +59,7 @@ class FsecController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'fsec_no' => 'required|unique:fsec_transactions|numeric',
+            // 'fsec_no' => 'required|unique:fsec_transactions|numeric',
             'project' => 'required|string|max:255',
             'owner' => 'required|string|max:255',
             'contact' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:11|max:11',
@@ -81,7 +81,7 @@ class FsecController extends Controller
             'longitude' => $request->lng,
         ]);
         $fsecs->fsec_transaction()->create([
-            'fsec_no' => $request->fsec_no,
+            // 'fsec_no' => $request->fsec_no,
             'valid_for' => $request->valid_from,
             'valid_until' => $request->valid_to,
             'amount' => $request->amount,
@@ -150,7 +150,7 @@ class FsecController extends Controller
     public function renew(Request $request)
     {
         $validated = $request->validate([
-            'fsec_no' => 'required|unique:fsec_transactions|numeric',
+            // 'fsec_no' => 'required|unique:fsec_transactions|numeric',
             'valid_from' => 'required',
             'valid_to' => 'required',
             'amount' => 'required|numeric',
@@ -165,7 +165,7 @@ class FsecController extends Controller
                 $fsecs->update();
             }
             $fsec->fsec_transaction()->create([
-                'fsec_no' => $request->fsec_no,
+                // 'fsec_no' => $request->fsec_no,
                 'valid_for' => $request->valid_from,
                 'valid_until' => $request->valid_to,
                 'amount' => $request->amount,

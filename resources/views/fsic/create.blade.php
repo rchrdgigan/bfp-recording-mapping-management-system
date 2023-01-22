@@ -4,7 +4,7 @@ FSIC New Transaction
 
 <x-app-layout>
   <x-slot name="header">
-      <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+      <h2 class="font-bold text-xl text-gray-800 leading-tight">
           {{ __('Add FSIC for Business') }}
       </h2>
   </x-slot>
@@ -34,7 +34,7 @@ FSIC New Transaction
                     </div>
                 </div>
 
-                <div class="col-span-12 lg:col-span-6">
+                <div class="col-span-12 lg:col-span-6 p-2">
                     <h1 class="text-white text-lg font-bold text-center pt-5">Business Information</h1>
                     <div class="grid grid-cols-12 gap-5 mt-5">
                         
@@ -91,7 +91,7 @@ FSIC New Transaction
                         </div>
 
                     </div>
-                    <div class="mt-4 intro-y">
+                    <div class="mt-4 intro-y float-right">
                         <x-jet-button>
                             {{ __('Save') }}
                         </x-jet-button>
