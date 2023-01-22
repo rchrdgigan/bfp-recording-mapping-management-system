@@ -44,7 +44,7 @@ class FsicController extends Controller
             })->latest('id')->paginate(5);
             return view('fsic.index', compact('fsic_trans'));
         }else{
-            $fsic_trans = FsicTransaction::with('fsic')->latest('id')->paginate(5);
+            $fsic_trans = FsicTransaction::with('fsic')->where('status', '=', 0)->latest('id')->paginate(5);
             return view('fsic.index', compact('fsic_trans'));
         }
     }
@@ -58,7 +58,7 @@ class FsicController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'fsic_no' => 'required|unique:fsic_transactions|numeric',
+            // 'fsic_no' => 'required|unique:fsic_transactions|numeric',
             'establishment' => 'required|string|max:255',
             'owner' => 'required|string|max:255',
             'business_types' => 'required|string|max:255',
@@ -82,7 +82,7 @@ class FsicController extends Controller
             'longitude' => $request->lng,
         ]);
         $fsics->fsic_transaction()->create([
-            'fsic_no' => $request->fsic_no,
+            // 'fsic_no' => $request->fsic_no,
             'valid_for' => $request->valid_from,
             'valid_until' => $request->valid_to,
             'amount' => $request->amount,
@@ -153,7 +153,7 @@ class FsicController extends Controller
     public function renew(Request $request)
     {
         $validated = $request->validate([
-            'fsic_no' => 'required|unique:fsic_transactions|numeric',
+            // 'fsic_no' => 'required|unique:fsic_transactions|numeric',
             'valid_from' => 'required',
             'valid_to' => 'required',
             'amount' => 'required|numeric',
@@ -168,7 +168,7 @@ class FsicController extends Controller
                 $fsics->update();
             }
             $fsic->fsic_transaction()->create([
-                'fsic_no' => $request->fsic_no,
+                // 'fsic_no' => $request->fsic_no,
                 'valid_for' => $request->valid_from,
                 'valid_until' => $request->valid_to,
                 'amount' => $request->amount,

@@ -39,10 +39,10 @@ FSIC New Transaction
                     <div class="grid grid-cols-12 gap-5 mt-5">
                         
                         <div class="col-span-12 lg:col-span-6">
-                            <div class="mt-4 intro-y">
+                            <!-- <div class="mt-4 intro-y">
                                 <label class="block font-medium text-sm text-white" for="fsic_no">{{ __('FSIC No.') }}</label>
                                 <x-jet-input id="fsic_no" class="block mt-1 w-full" type="text" name="fsic_no" :value="old('fsic_no')" required />
-                            </div>
+                            </div> -->
                             <div class="mt-4 intro-y">
                                 <label class="block font-medium text-sm text-white" for="estab">{{ __('Name of Establishment') }}</label>
                                 <x-jet-input id="estab" class="block mt-1 w-full" type="text" name="establishment" :value="old('establishment')" required />
@@ -59,13 +59,14 @@ FSIC New Transaction
                                 <label class="block font-medium text-sm text-white" for="contact">{{ __('Contact Number') }}</label>
                                 <x-jet-input id="contact" class="block mt-1 w-full" type="text" name="contact" :value="old('contact')" required />
                             </div>
-                        </div>
-
-                        <div class="col-span-12 lg:col-span-6">
                             <div class="mt-4 intro-y">
                                 <label class="block font-medium text-sm text-white" for="address">{{ __('Address') }}</label>
                                 <x-select-location/>
                             </div>
+                        </div>
+
+                        <div class="col-span-12 lg:col-span-6">
+                            
                             <div class="grid grid-cols-12 mt-2 intro-y gap-2">
                                 <div class="mt-4 col-span-6">
                                     <label class="block font-medium text-sm text-white" for="valid_from">{{ __('Valid For') }}</label>
