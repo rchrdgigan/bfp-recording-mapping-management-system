@@ -35,4 +35,13 @@ class FsicTransaction extends Model
         }
         return $remaining_days;
     }
+
+    public static function boot()
+    {
+        parent::boot();
+
+        static::creating(function($model){
+            $model->fsic_no = FsicTransaction::whereYear('valid_for', date('Y'))->max('fsic_no') + 1;
+        });
+    }
 }

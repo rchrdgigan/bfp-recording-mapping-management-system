@@ -5,6 +5,9 @@ FSIC Management
   <x-slot name="header">
       <h2 class="font-bold text-xl text-gray-900 leading-tight">
           {{ __('FSIC Transaction Management') }}
+          <button class="float-right bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-1 px-4 border border-blue-500 hover:border-transparent rounded">
+          {{ __('FSIC Transaction History') }}
+          </button>
       </h2>
   </x-slot>
 
@@ -26,6 +29,9 @@ FSIC Management
               <button type="submit" class="text-center bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 ml-1 rounded-md">
                 Go
               </button>
+              <a href="" class="ml-2 text-center bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded-md w-40">
+                <i class="fa fa-bell fa-lg" aria-hidden="true"></i> Notif All
+              </a>
               @if(request('search') || request('status'))
               <a href="{{route('fsic.index')}}" class="text-center bg-gray-700 hover:bg-gray-500 text-white py-2 px-4 ml-1 rounded-md">
                 <i class="fa fa-close fa-lg" aria-hidden="true"></i>

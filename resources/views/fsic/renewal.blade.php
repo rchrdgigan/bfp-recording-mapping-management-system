@@ -34,10 +34,10 @@ FSIC Renewal
                                         <x-jet-label for="fsic_no" value="Name of Project: " />{{$fsics->establishment}}
                                     </div>
                                 </div>
-                                <div class="mt-4 intro-y">
+                                <!-- <div class="mt-4 intro-y">
                                     <x-jet-label for="fsic_no" value="{{ __('FSIC No.') }}" />
                                     <x-jet-input id="fsic_no" class="block mt-1 w-full text-xs" type="text" name="fsic_no" :value="old('fsic_no')" required autofocus />
-                                </div>
+                                </div> -->
                                 <div class="flex intro-y gap-2">
                                     <div class="mt-4 col-span-6">
                                         <x-jet-label for="valid_from" value="{{ __('Valid For') }}" />
