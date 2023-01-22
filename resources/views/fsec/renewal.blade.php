@@ -34,11 +34,11 @@ FSEC Renewal
                                         <x-jet-label for="fsec_no" value="Name of Project: " />{{$fsecs->establishment}}
                                     </div>
                                 </div>
-                                <div class="mt-4 intro-y">
+                                <!-- <div class="mt-4 intro-y">
                                     <x-jet-label for="fsec_no" value="{{ __('FSEC No.') }}" />
                                     <x-jet-input id="fsec_no" class="block mt-1 w-full" type="text" name="fsec_no" :value="old('fsec_no')" required autofocus />
-                                </div>
-                                <div class="flex intro-y gap-2">
+                                </div> -->
+                                <div class="grid grid-cols-12 intro-y gap-2">
                                     <div class="mt-4 col-span-6">
                                         <x-jet-label for="valid_from" value="{{ __('Valid For') }}" />
                                         <x-jet-input id="valid_from" class="block mt-1 w-full" type="date" name="valid_from" :value="old('valid_from')" value="{{Carbon\Carbon::now()->format('Y-m-d')}}" required autofocus />

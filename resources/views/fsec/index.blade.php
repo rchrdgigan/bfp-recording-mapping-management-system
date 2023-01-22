@@ -3,7 +3,7 @@ FSEC Management
 @endsection
 <x-app-layout>
   <x-slot name="header">
-      <h2 class="font-bold text-xl text-gray-800 leading-tight">
+      <h2 class="font-bold text-xl text-gray-900 leading-tight">
           {{ __('FSEC Transaction Management') }}
       </h2>
   </x-slot>
@@ -40,9 +40,9 @@ FSEC Management
           <div class="w-full overflow-x-auto">
             <table class="w-full table table-report">
               <thead>
-                <tr class="font-bold tracking-wide text-left bg-gray-100 uppercase border-b border-gray-600">
+                <tr class="font-bold tracking-wide text-left text-gray-900 bg-gray-100 uppercase border-b border-gray-600">
                   <td class="px-4 py-3">Date</td>
-                  <td class="px-4 py-3">QR No.</td>
+                  <td class="px-4 py-3">OR No.</td>
                   <td class="px-4 py-3">FSEC No.</td>
                   <td class="px-4 py-3">Project Name</td>
                   <td class="px-4 py-3">Owner</td>

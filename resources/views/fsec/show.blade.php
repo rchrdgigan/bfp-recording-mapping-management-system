@@ -15,52 +15,52 @@ View FSEC
             <i class="fa fa-arrow-left" aria-hidden="true"></i> Back
         </a>
         <div class="pos grid grid-cols-12 gap-5 mt-5">
-            <div class="col-span-12 lg:col-span-4 text-center">
+            <div class="col-span-12 lg:col-span-4 text-white text-center">
                 <h1 class="text-lg font-semibold">Information</h1>
                 <div class="mt-4 intro-y">
-                    <x-jet-label for="fsec_no" value="{{ __('FSEC No.') }}" />
-                    {{$fsec_trans->fsec_no}}
+                    <label class="font-medium">{{ __('FSEC No.') }}</label><br>
+                    <label class="font-medium">{{$fsec_trans->fsec_no}}</label>
                 </div>
                 <div class="mt-4 intro-y">
-                    <x-jet-label for="estab" value="{{ __('Name of Project') }}" />
-                    {{$fsec_trans->fsec->establishment}}
+                    <label class="font-medium">{{ __('Name of Project') }}</label><br>
+                    <label class="font-medium">{{$fsec_trans->fsec->establishment}}</label>
                 </div>
                 <div class="mt-4 intro-y">
-                    <x-jet-label for="owner" value="{{ __('Name of Owner') }}" />
-                    {{$fsec_trans->fsec->owner}}
+                    <label class="font-medium">{{ __('Name of Owner') }}</label><br>
+                    <label class="font-medium">{{$fsec_trans->fsec->owner}}</label>
                 </div>
                 <div class="mt-4 intro-y">
-                    <x-jet-label for="contact" value="{{ __('Contact Number') }}" />
-                    {{$fsec_trans->fsec->contact}}
+                    <label class="font-medium">{{ __('Contact Number') }}</label><br>
+                    <label class="font-medium">{{$fsec_trans->fsec->contact}}</label>
                 </div>
                 <div class="mt-4 intro-y">
-                    <x-jet-label for="address" value="{{ __('Address') }}" />
-                    {{$fsec_trans->fsec->address}}
+                    <label class="font-medium">{{ __('Address') }}</label><br>
+                    <label class="font-medium">{{$fsec_trans->fsec->address}}</label>
                 </div>
 
                 <hr class="mt-4 intro-y">
 
                 <div class="flex intro-y gap-2">
                     <div class="mt-4 col-span-6 mx-auto">
-                        <x-jet-label for="valid_from" value="{{ __('Valid For') }}" />
-                        {{Carbon\Carbon::parse($fsec_trans->for)->format('M d, Y')}}
+                        <label class="font-medium">{{ __('Valid For') }}</label><br>
+                        <label class="font-medium">{{Carbon\Carbon::parse($fsec_trans->for)->format('M d, Y')}}</label>
                     </div>
                     <div class="mt-4 col-span-6 mx-auto">
-                        <x-jet-label for="valid_to" value="{{ __('Valid Until') }}" />
-                        {{Carbon\Carbon::parse($fsec_trans->valid_until)->format('M d, Y')}}
+                        <label class="font-medium">{{ __('Valid Until') }}</label><br>
+                        <label class="font-medium">{{Carbon\Carbon::parse($fsec_trans->valid_until)->format('M d, Y')}}</label>
                     </div>
                 </div>
                 <div class="mt-4 intro-y">
-                    <x-jet-label for="amount" value="{{ __('Amount') }}" />
-                    {{$fsec_trans->amount}}
+                    <label class="font-medium">{{ __('Amount') }}</label><br>
+                    <label class="font-medium">{{$fsec_trans->amount}}</label>
                 </div>
                 <div class="mt-4 intro-y">
-                    <x-jet-label for="ops_no" value="{{ __('OPS Number') }}" />
-                    {{$fsec_trans->ops_no}}
+                    <label class="font-medium">{{ __('OPS Number') }}</label><br>
+                    <label class="font-medium">{{$fsec_trans->ops_no}}</label>
                 </div>
                 <div class="mt-4 intro-y">
-                    <x-jet-label for="or_no" value="{{ __('OR Number') }}" />
-                    {{$fsec_trans->or_no}}
+                    <label class="font-medium">{{ __('OR Number') }}</label><br>
+                    <label class="font-medium">{{$fsec_trans->or_no}}</label>
                 </div>
                 <div class="mt-4 intro-y">
                     @if($fsec_trans->valid_until <= Carbon\Carbon::now()->addDays(6)->format('Y-m-d'))

@@ -35,4 +35,13 @@ class FsecTransaction extends Model
         }
         return $remaining_days;
     }
+
+    public static function boot()
+    {
+        parent::boot();
+
+        static::creating(function($model){
+            $model->fsec_no = FsecTransaction::whereYear('valid_for', date('Y'))->max('fsec_no') + 1;
+        });
+    }
 }

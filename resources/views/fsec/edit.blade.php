@@ -28,7 +28,7 @@ Edit FSEC
                             <h1 class="text-lg font-semibold text-center">Information</h1>
                                 <div class="mt-4 intro-y">
                                     <x-jet-label for="fsec_no" value="{{ __('FSEC No.') }}" />
-                                    <x-jet-input id="fsec_no" class="block mt-1 w-full" type="text" name="fsec_no" :value="old('fsec_no')" value="{{$fsec_trans->fsec_no}}" required autofocus />
+                                    <x-jet-input id="fsec_no" disabled class="block mt-1 w-full" type="text" name="fsec_no" :value="old('fsec_no')" value="{{$fsec_trans->fsec_no}}" required/>
                                 </div>
                                 <div class="mt-4 intro-y">
                                     <x-jet-label for="estab" value="{{ __('Name of Project') }}" />
