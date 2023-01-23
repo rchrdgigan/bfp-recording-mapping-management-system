@@ -4,7 +4,6 @@
     @endif
     <option value="">--- Status ---</option>
     <option value="New">New</option>
-    <option value="Oldest">Oldest</option>
     <option value="Expired">Expired</option>
     <option value="Before Expired">Before Expired</option>
 </select>

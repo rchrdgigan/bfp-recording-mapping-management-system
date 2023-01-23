@@ -50,7 +50,7 @@ FSEC Renewal
                                 </div>
                                 <div class="mt-4 intro-y">
                                     <x-jet-label for="amount" value="{{ __('Amount') }}" />
-                                    <x-jet-input id="amount" class="block mt-1 w-full" type="text" name="amount" :value="old('amount')" required autofocus />
+                                    <x-jet-input id="amount" class="block mt-1 w-full" type="number" name="amount" :value="old('amount')" required autofocus />
                                 </div>
                                 <div class="mt-4 intro-y">
                                     <x-jet-label for="ops_no" value="{{ __('OPS Number') }}" />
@@ -74,3 +74,18 @@ FSEC Renewal
     </div>
   </div>
 </x-app-layout>
+
+<script>
+    function onlyNumberInput()
+    {
+        var key = event.which || event.keyCode;
+        if (key && (key <= 47 || key >= 58) && key != 8) {
+            event.preventDefault();
+        }
+    }
+
+    $(function(){
+        $("[name=ops_no]").keypress( onlyNumberInput );
+        $("[name=or_no]").keypress( onlyNumberInput );
+    })
+</script>

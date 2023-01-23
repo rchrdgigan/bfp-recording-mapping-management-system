@@ -11,9 +11,15 @@ View FSEC
 
   <div class="py-12">
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        @if(isset($_GET['status']))
+        <a href="{{route('fsec.history')}}" class="bg-gray-500 hover:bg-gray-700 text-white py-2 px-4 ml-3 rounded-md">
+            <i class="fa fa-arrow-left" aria-hidden="true"></i> Back
+        </a>
+        @else
         <a href="{{route('fsec.index')}}" class="bg-gray-500 hover:bg-gray-700 text-white py-2 px-4 ml-3 rounded-md">
             <i class="fa fa-arrow-left" aria-hidden="true"></i> Back
         </a>
+        @endif
         <div class="pos grid grid-cols-12 gap-5 mt-5">
             <div class="col-span-12 lg:col-span-4 text-white text-center">
                 <h1 class="text-lg font-semibold">Information</h1>

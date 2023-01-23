@@ -5,16 +5,20 @@ FSIC Management
   <x-slot name="header">
       <h2 class="font-bold text-xl text-gray-900 leading-tight">
           {{ __('FSIC Transaction Management') }}
-          <button class="float-right bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-1 px-4 border border-blue-500 hover:border-transparent rounded">
-          {{ __('FSIC Transaction History') }}
-          </button>
+          <a href="" class="mt-4 xl:mt-0 float-right text-sm ml-2 text-center bg-gray-700 hover:bg-gray-800 text-white py-2 px-4 rounded-md w-40">
+            <i class="fa fa-bell fa-lg" aria-hidden="true"></i> Notify Expired
+          </a>
+          <a href="{{route('fsic.history')}}" class="mt-4 xl:mt-0 float-right bg-gray-700 hover:bg-gray-800 text-sm text-white font-semibold hover:text-white py-2 px-4 rounded">
+            <i class="fa fa-history" aria-hidden="true"></i> {{ __('FSIC History log') }}
+          </a>
+          
       </h2>
   </x-slot>
 
   <div class="py-12 p-2">
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
       <div class="flex gap-2">
-        <a href="{{route('fsic.create')}}" class="text-center bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded-md w-40">
+        <a href="{{route('fsic.create')}}" class="text-center bg-blue-400 font-bold hover:bg-blue-700 text-white py-2 px-4 rounded-md w-40">
           <i class="fa fa-plus fa-lg" aria-hidden="true"></i> Add
         </a>
         <div class="ml-auto w-full">
@@ -26,12 +30,10 @@ FSIC Management
               <div class="w-60 flex ml-2">
                 <x-select-status/>
               </div>
-              <button type="submit" class="text-center bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 ml-1 rounded-md">
+              <button type="submit" class="text-center bg-blue-400 font-bold hover:bg-blue-700 text-white py-2 px-4 ml-1 rounded-md">
                 Go
               </button>
-              <a href="" class="ml-2 text-center bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded-md w-40">
-                <i class="fa fa-bell fa-lg" aria-hidden="true"></i> Notif All
-              </a>
+              
               @if(request('search') || request('status'))
               <a href="{{route('fsic.index')}}" class="text-center bg-gray-700 hover:bg-gray-500 text-white py-2 px-4 ml-1 rounded-md">
                 <i class="fa fa-close fa-lg" aria-hidden="true"></i>
@@ -59,7 +61,7 @@ FSIC Management
               </thead>
               <tbody class="bg-white">
                 @forelse($fsic_trans as $data)
-                <tr class="font-medium">
+                <tr class="font-medium text-gray-900">
                   <td class="px-4 py-3 ">{{Carbon\Carbon::parse($data->created_at)->format('M d, Y')}}</td>
                   <td class="px-4 py-3 ">{{$data->or_no}}</td>
                   <td class="px-4 py-3 ">{{$data->fsic_no}}</td>
