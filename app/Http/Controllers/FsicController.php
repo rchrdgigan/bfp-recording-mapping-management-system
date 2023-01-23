@@ -20,28 +20,26 @@ class FsicController extends Controller
             ->with(['fsic' => function($query) use ($searchString){
                 $query->where('establishment', 'like', '%'.$searchString.'%')
                 ->orWhere('owner', 'like', '%'.$searchString.'%');
-            }])->latest('id')->paginate(5);
+            }])->where('status', '=', 0)->latest('id')->paginate(5);
 
             if($fsic_trans->isEmpty()){
                 $fsic_trans = FsicTransaction::query()->when(request('search'), function($query){
                     $search = request('search');
                     $query->where('or_no', '=', $search)
                     ->orWhere('fsic_no', $search);
-                })->latest('id')->paginate(5);
+                })->where('status', '=', 0)->latest('id')->paginate(5);
             }
             return view('fsic.index', compact('fsic_trans'));
         }elseif(request('status')){
             $fsic_trans = FsicTransaction::query()->when(request('status'), function($query){
                 if(request('status') == 'Expired'){
-                    $query->where('valid_until', '<=', Carbon::now()->format('Y-m-d'))->where('status', '=', 0);
+                    $query->where('valid_until', '<=', Carbon::now()->format('Y-m-d'));
                 }else if(request('status') == 'Before Expired'){
-                    $query->where('valid_until', '<=', Carbon::now()->addDays(5)->format('Y-m-d'))->where('status', '=', 0);
-                }else if(request('status') == 'Oldest'){
-                    $query->where('status', '=', 1);
+                    $query->where('valid_until', '<=', Carbon::now()->addDays(5)->format('Y-m-d'));
                 }else if(request('status') == 'New'){
-                    $query->where('valid_until', '>', Carbon::now()->format('Y-m-d'))->where('status', '=', 0);
+                    $query->where('valid_until', '>', Carbon::now()->format('Y-m-d'));
                 }
-            })->latest('id')->paginate(5);
+            })->where('status', '=', 0)->latest('id')->paginate(5);
             return view('fsic.index', compact('fsic_trans'));
         }else{
             $fsic_trans = FsicTransaction::with('fsic')->where('status', '=', 0)->latest('id')->paginate(5);
@@ -178,5 +176,33 @@ class FsicController extends Controller
             return redirect()->back()->with('message','Successfully Renew!');
         }
         return redirect()->back()->with('error','No data found for this FSIC!');
+    }
+
+    public function history()
+    {
+        if(request('search')){
+            $searchString = request('search');
+            
+            $fsic_trans = FsicTransaction::whereHas('fsic', function ($query) use ($searchString){
+                $query->where('establishment', 'like', '%'.$searchString.'%')
+                ->orWhere('owner', 'like', '%'.$searchString.'%');
+            })
+            ->with(['fsic' => function($query) use ($searchString){
+                $query->where('establishment', 'like', '%'.$searchString.'%')
+                ->orWhere('owner', 'like', '%'.$searchString.'%');
+            }])->where('status', '=', 1)->latest('id')->paginate(5);
+
+            if($fsic_trans->isEmpty()){
+                $fsic_trans = FsicTransaction::query()->when(request('search'), function($query){
+                    $search = request('search');
+                    $query->where('or_no', '=', $search)
+                    ->orWhere('fsic_no', $search);
+                })->where('status', '=', 1)->latest('id')->paginate(5);
+            }
+            return view('fsic.history', compact('fsic_trans'));
+        }else{
+            $fsic_trans = FsicTransaction::with('fsic')->where('status', '=', 1)->latest('id')->paginate(5);
+            return view('fsic.history', compact('fsic_trans'));
+        }
     }
 }

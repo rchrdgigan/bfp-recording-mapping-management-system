@@ -1,44 +1,28 @@
 @section('title')
-FSEC Management
+FSEC History Log
 @endsection
 <x-app-layout>
   <x-slot name="header">
       <h2 class="font-bold text-xl text-gray-900 leading-tight">
-          {{ __('FSEC Transaction Management') }}
-          <a href="" class="mt-4 xl:mt-0 float-right text-sm ml-2 text-center bg-gray-700 hover:bg-gray-800 text-white py-2 px-4 rounded-md w-40">
-            <i class="fa fa-bell fa-lg" aria-hidden="true"></i> Notify Expired
-          </a>
-          <a href="{{route('fsec.history')}}" class="mt-4 xl:mt-0 float-right bg-gray-700 hover:bg-gray-800 text-sm text-white font-semibold hover:text-white py-2 px-4 rounded">
-            <i class="fa fa-history" aria-hidden="true"></i> {{ __('FSEC History log') }}
-          </a>
-
+          {{ __('FSEC Transaction History') }}
       </h2>
      
   </x-slot>
 
   <div class="py-12 p-2">
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-      <div class="flex gap-2">
-        <a href="{{route('fsec.create')}}" class="text-center bg-blue-400 font-bold hover:bg-blue-500 text-white py-2 px-4 rounded-md w-40">
-          <i class="fa fa-plus fa-lg" aria-hidden="true"></i> Add
+        <a href="{{route('fsic.index')}}" class="bg-gray-500 hover:bg-gray-700 text-white py-2 px-4 rounded-md">
+            <i class="fa fa-arrow-left" aria-hidden="true"></i> Back
         </a>
-        
+      <div class="flex mt-5 gap-2">
         <div class="ml-auto w-full">
           <form method="get">
             
             <div class="w-full flex items-center relative">
               <x-jet-input id="search" class="border border-gray-400 rounded-lg w-full px-10" type="text" name="search" :value="old('search')" value="{{request('search')}}" placeholder="Search OR Number, FSEC Number, Project Name or Owner" autofocus />
               <i class="text-gray-600 fa fa-search fa-lg absolute ml-2" aria-hidden="true"></i>
-              
-              <div class="w-60 flex ml-2">
-                <x-select-status/>
-              </div>
-              <button type="submit" class="text-center bg-blue-400 font-bold hover:bg-blue-700 text-white py-2 px-4 ml-1 rounded-md">
-                Go
-              </button>
-             
-              @if(request('search') || request('status'))
-              <a href="{{route('fsec.index')}}" class="text-center bg-gray-700 hover:bg-gray-500 text-white py-2 px-4 ml-1 rounded-md">
+              @if(request('search'))
+              <a href="{{route('fsec.history')}}" class="text-center bg-gray-700 hover:bg-gray-500 text-white py-2 px-4 ml-1 rounded-md">
                 <i class="fa fa-close fa-lg" aria-hidden="true"></i>
               </a>
               @endif
@@ -104,11 +88,8 @@ FSEC Management
                   </td>
                   <td>
                     <div class="flex gap-1">
-                      <a href="{{route('fsec.show', $data->id)}}" class="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded-md">
+                      <a href="{{route('fsec.show', [$data->id,'status'=>'history'])}}" class="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded-md">
                         <i class="fa fa-eye" aria-hidden="true"></i>
-                      </a> 
-                      <a href="{{route('fsec.edit', $data->id)}}" class="bg-green-500 hover:bg-green-700 text-white py-2 px-4 rounded-md">
-                        <i class="fa fa-pencil" aria-hidden="true"></i>
                       </a> 
                       @if($data->status == 0)
                         <a href="{{route('fsec.renewal', $data->fsec->id)}}" class="bg-purple-500 hover:bg-purple-700 text-white py-2 px-4 rounded-md">

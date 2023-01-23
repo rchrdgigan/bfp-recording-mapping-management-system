@@ -54,7 +54,7 @@ FSEC New Transaction
                             </div>
                             <div class="mt-4 intro-y">
                                 <label class="block font-medium text-sm text-white" for="contact">{{ __('Contact Number') }}</label>
-                                <x-jet-input id="contact" class="block mt-1 w-full" type="text" name="contact" :value="old('contact')" required />
+                                <x-jet-input id="contact" class="block mt-1 w-full" minlength="11" maxlength="11" type="text" name="contact" :value="old('contact')" required />
                             </div>
                             <div class="mt-4 intro-y">
                                 <label class="block font-medium text-sm text-white" for="address">{{ __('Address') }}</label>
@@ -76,7 +76,7 @@ FSEC New Transaction
                             </div>
                             <div class="mt-4 intro-y">
                                 <label class="block font-medium text-sm text-white" for="amount">{{ __('Amount') }}</label>
-                                <x-jet-input id="amount" class="block mt-1 w-full" type="text" name="amount" :value="old('amount')" required />
+                                <x-jet-input id="amount" class="block mt-1 w-full" type="number" name="amount" :value="old('amount')" required />
                             </div>
                             <div class="mt-4 intro-y">
                                 <label class="block font-medium text-sm text-white" for="ops_no">{{ __('OPS Number') }}</label>
@@ -124,4 +124,20 @@ FSEC New Transaction
     .bindPopup('<h2>{{$data->establishment}}</h2><a class="text-xs">{{$data->address}}</a>')
     .openPopup();
     @endforeach
+</script>
+
+<script>
+    function onlyNumberInput()
+    {
+        var key = event.which || event.keyCode;
+        if (key && (key <= 47 || key >= 58) && key != 8) {
+            event.preventDefault();
+        }
+    }
+
+    $(function(){
+        $("[name=ops_no]").keypress( onlyNumberInput );
+        $("[name=or_no]").keypress( onlyNumberInput );
+        $("[name=contact]").keypress( onlyNumberInput );
+    })
 </script>

@@ -23,6 +23,7 @@ Route::middleware([
         Route::put('/update/{id}', 'update')->name('update');
         Route::get('/renewal/{id}', 'renewalShow')->name('renewal');
         Route::post('/renew', 'renew')->name('renew');
+        Route::get('/history', 'history')->name('history');
     });
     Route::controller(FsecController::class)
     ->as('fsec.')
@@ -36,6 +37,7 @@ Route::middleware([
         Route::put('/update/{id}', 'update')->name('update');
         Route::get('/renewal/{id}', 'renewalShow')->name('renewal');
         Route::post('/renew', 'renew')->name('renew');
+        Route::get('/history', 'history')->name('history');
     });
     Route::controller(MapController::class)
     ->as('map.')
