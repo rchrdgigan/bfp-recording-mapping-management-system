@@ -5,7 +5,7 @@ FSIC Management
   <x-slot name="header">
       <h2 class="font-bold text-xl text-gray-900 leading-tight">
           {{ __('FSIC Transaction Management') }}
-          <a href="" class="mt-4 xl:mt-0 float-right text-sm ml-2 text-center bg-gray-700 hover:bg-gray-800 text-white py-2 px-4 rounded-md w-40">
+          <a href="{{route('fsic.notify')}}" class="mt-4 xl:mt-0 float-right text-sm ml-2 text-center bg-gray-700 hover:bg-gray-800 text-white py-2 px-4 rounded-md w-40">
             <i class="fa fa-bell fa-lg" aria-hidden="true"></i> Notify Expired
           </a>
           <a href="{{route('fsic.history')}}" class="mt-4 xl:mt-0 float-right bg-gray-700 hover:bg-gray-800 text-sm text-white font-semibold hover:text-white py-2 px-4 rounded">
@@ -17,7 +17,9 @@ FSIC Management
 
   <div class="py-12 p-2">
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-      <div class="flex gap-2">
+      <x-success/>
+      <x-error/>
+      <div class="flex mt-5 gap-2">
         <a href="{{route('fsic.create')}}" class="text-center bg-blue-400 font-bold hover:bg-blue-700 text-white py-2 px-4 rounded-md w-40">
           <i class="fa fa-plus fa-lg" aria-hidden="true"></i> Add
         </a>
@@ -128,7 +130,9 @@ FSIC Management
           </div>
         </div>
       </section>
+      @if(!isset($paginate))
       {{$fsic_trans->links()}}
+      @endif
     </div>
   </div>
 

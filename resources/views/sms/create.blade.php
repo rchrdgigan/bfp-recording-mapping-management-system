@@ -26,12 +26,19 @@ Message Client
                             <div class="tab-content__pane p-5 active" id="content">
                             <h1 class="text-lg font-semibold text-center">Message Information</h1>
                                 <div class="mt-4 intro-y">
-                                    <x-jet-label for="r_no" value="{{ __('Recipient Number') }}" />
-                                    <x-jet-input id="r_no" class="block mt-1 w-full text-xs" type="text" name="r_no" :value="old('r_no')" required autofocus />
+                                    <label class="block font-medium text-md" for="r_no">{{ __('Recipient') }}</label>
+                                    <select class="select2 block mt-1 w-full input border-gray-300" name="recipient" required id="r_no">
+                                    @foreach($fsec as $data_fsec)
+                                        <option value="{{$data_fsec->owner}} | {{$data_fsec->contact}} | FSEC">{{$data_fsec->owner}} | {{$data_fsec->contact}} | FSEC</option>
+                                    @endforeach
+                                    @foreach($fsic as $data_fsic)
+                                        <option value="{{$data_fsic->owner}} | {{$data_fsic->contact}} | FSIC">{{$data_fsic->owner}} | {{$data_fsic->contact}} | FSIC</option>
+                                    @endforeach
+                                    </select>
                                 </div>
                                 <div class="mt-4 intro-y">
-                                    <x-jet-label for="message" value="{{ __('Text Message') }}" />
-                                    <textarea name="message" id="" cols="30" rows="10" id="message" class="block mt-1 w-full text-xs input border-gray-300" required></textarea>
+                                    <label class="block font-medium text-md" for="message">{{ __('Text Message') }}</label>
+                                    <textarea name="message" cols="30" rows="10" id="message" class="block mt-1 w-full input border-gray-300" required></textarea>
                                 </div>
                                 <div class="mt-4 intro-y">
                                     <x-jet-button>
@@ -47,3 +54,10 @@ Message Client
     </div>
   </div>
 </x-app-layout>
+
+<script>
+    // In your Javascript (external .js resource or <script> tag)
+    $(document).ready(function() {
+        $('.select2').select2();
+    });
+</script>
