@@ -10,7 +10,9 @@ class Sms extends Model
     use HasFactory;
 
     protected $fillable = [
-        'recipient_number',
+        'owner',
+        'contact',
+        'status',
         'message',
     ];
 }

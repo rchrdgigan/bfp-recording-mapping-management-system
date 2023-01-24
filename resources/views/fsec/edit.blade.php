@@ -51,7 +51,7 @@ Edit FSEC
                                         </div>
                                     </div>
                                     <div class="col-span-12 lg:col-span-6">
-                                        <div class="grid grid-cols-12 gap-5 intro-y">
+                                        <div class="grid grid-cols-12 gap-2 intro-y">
                                             <div class="mt-4 col-span-6">
                                                 <x-jet-label for="valid_from" value="{{ __('Valid For') }}" />
                                                 <x-jet-input id="valid_from" class="block mt-1 w-full" type="date" name="valid_from" :value="old('valid_from')" value="{{$fsec_trans->valid_for}}" required autofocus />

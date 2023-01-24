@@ -56,7 +56,7 @@ Edit FSIC
                                             <x-jet-label for="address" value="{{ __('Address') }}" />
                                             <x-select-location />
                                         </div>
-                                        <div class="grid grid-cols-12 gap-5 intro-y">
+                                        <div class="grid grid-cols-12 gap-2 intro-y">
                                             <div class="mt-4 col-span-6">
                                                 <x-jet-label for="valid_from" value="{{ __('Valid For') }}" />
                                                 <x-jet-input id="valid_from" class="block mt-1 w-full" type="date" name="valid_from" :value="old('valid_from')" value="{{$fsic_trans->valid_for}}" required autofocus />

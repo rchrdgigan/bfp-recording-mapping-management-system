@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Fsic;
 use App\Models\FsicTransaction;
 use Carbon\Carbon;
+use Vonage;
 class FsicController extends Controller
 {
     public function index()
@@ -203,6 +204,39 @@ class FsicController extends Controller
         }else{
             $fsic_trans = FsicTransaction::with('fsic')->where('status', '=', 1)->latest('id')->paginate(5);
             return view('fsic.history', compact('fsic_trans'));
+        }
+    }
+
+    public function notify()
+    {
+        $fsic_trans = FsicTransaction::with('fsic')->where('valid_until', '<=', Carbon::now()->addDays(5)->format('Y-m-d'))->where('status', '=', 0)->latest('id')->get();
+        if(!$fsic_trans->isEmpty())
+        {
+            foreach($fsic_trans as $data){
+                if($data->valid_until >= Carbon::now()->addDays(6)->format('Y-m-d')){
+                }else{
+                    if($data->remaining_days <= 5 && $data->status == 0){
+                        if($data->remaining_days <= 5 && $data->remaining_days >= 2){
+                            $status = $data->remaining_days . 'days nalang ang natitira bago ang duedate.'; //5 to 2 days left
+                        }elseif($data->remaining_days == 1){
+                            $status = $data->remaining_days . 'day nalang ang natitira bago ang duedate.'; // 1 day left
+                        }elseif($data->remaining_days >= 0){ //due date
+                            $status = 'due date ngayon.';
+                        }else{ //expired
+                            $status = 'expired na.';
+                        }
+                    }
+                }
+                
+                $send = Vonage::message()->send([
+                    'to'   => '63'.ltrim($data->fsic->contact, '0'),
+                    'from' => 'BFP Irosin',
+                    'text' => 'Ang iyong Fire Safety Inspection Certificate ay '.$status.' Pumunta sa Fire Station ng Irosin at mag renew ng iyong FSIC. Salamat!'
+                ]);
+            }
+            return redirect()->back()->with('message','Successfully Notified!');
+        }else{
+            return redirect()->back()->with('error','No data found to be notify for this FSIC!');
         }
     }
 }
